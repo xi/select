@@ -46,18 +46,6 @@
 	color: HighlightText;
 }
 
-.select__input {
-	-moz-appearance: textfield;
-	display: inline-block;
-	padding: 2px;
-	background: Field;
-	color: FieldText;
-	border: 1px solid ThreeDShadow;
-}
-.select__input:focus-within {
-	outline: 1px solid Highlight;
-	outline-offset: -1px;
-}
 .select__input > ul {
 	display: inline;
 	padding: 0;
@@ -65,15 +53,12 @@
 }
 .select__input li {
 	display: inline-block;
-	margin-right: 0.2em;
+	margin: 0.1em 0.2em;
+	margin-inline-start: 0;
 	padding: 0 0.2em;
 	background: rgba(128,128,128,.2);
 	color: inherit;
 	border: 1px solid ThreeDShadow;
 	border-radius: 0.3em;
 	cursor: default;
-}
-.select__input > input {
-	border: none;
-	outline: 0;
 }

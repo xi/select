@@ -5,7 +5,6 @@
 	-	input.value === selected.label
 	-	if only one match
 	-	if only one match that is equal to value
--	multi wrap click -> on whole fake input
 
 -	split into reusable parts
 	-	dropdown
