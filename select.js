@@ -80,9 +80,7 @@ class Select {
 	}
 
 	updateValue() {
-		if (this.original.selectedOptions.length) {
-			this.input.value = this.original.selectedOptions[0].label;
-		}
+		this.input.value = '';
 	}
 
 	open() {
@@ -95,7 +93,7 @@ class Select {
 				li.id = this.id + '_option_' + i;
 				li.textContent = op.label;
 				li.onclick = () => {
-					this.setValue(i);
+					this.setValue(i, true);
 					this.input.focus();
 				};
 				this.dropdown.append(li);
@@ -120,8 +118,12 @@ class Select {
 		this.update();
 	}
 
-	setValue(i) {
-		this.original.options[i].selected = true;
+	setValue(i, toggle) {
+		if (toggle) {
+			this.original.options[i].selected = !this.original.options[i].selected;
+		} else {
+			this.original.options[i].selected = true;
+		}
 		this.original.dispatchEvent(new Event('change'));
 		this.close();
 		this.update();
