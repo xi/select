@@ -210,7 +210,6 @@ class Select {
 			if (!this.original.checkValidity()) {
 				this.input.setCustomValidity(this.original.validationMessage);
 			}
-			this.close();
 		}
 	}
 }
