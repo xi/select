@@ -23,14 +23,19 @@ class Select {
 
 	createElements() {
 		this.wrapper = document.createElement('div');
+		this.inputWrapper = document.createElement('div');
 		this.input = document.createElement('input');
 		this.dropdown = document.createElement('ul');
+		this.values = document.createElement('ul');
 
 		this.wrapper.className = 'select';
+		this.inputWrapper.className = 'select__input';
 		this.dropdown.className = 'select__dropdown';
 
-		this.wrapper.append(this.input);
+		this.wrapper.append(this.inputWrapper);
 		this.wrapper.append(this.dropdown);
+		this.inputWrapper.append(this.values);
+		this.inputWrapper.append(this.input);
 
 		this.wrapper.setAttribute('role', 'combobox');
 		this.wrapper.setAttribute('aria-expanded', 'false');
