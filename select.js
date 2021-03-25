@@ -56,6 +56,11 @@ class Select {
 		this.updateValue();
 	}
 
+	isMatch(s) {
+		var q = this.input.value.toLowerCase();
+		return s.toLowerCase().indexOf(q) !== -1;
+	}
+
 	update() {
 		if (this.focus !== -1 && this.dropdown.children.length) {
 			Array.from(this.dropdown.children).forEach((li, i) => {
@@ -76,12 +81,11 @@ class Select {
 	}
 
 	open() {
-		var q = this.input.value.toLowerCase();
 		this.focus = 0;
 		this.dropdown.innerHTML = '';
 		this.indexMap = [];
 		Array.from(this.original.options).forEach((op, i) => {
-			if (op.label.toLowerCase().indexOf(q) !== -1) {
+			if (this.isMatch(op.label)) {
 				var li = document.createElement('li');
 				li.id = this.id + '_option_' + i;
 				li.textContent = op.label;
