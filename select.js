@@ -24,19 +24,24 @@ class Select {
 
 	createElements() {
 		this.wrapper = document.createElement('div');
-		this.inputWrapper = document.createElement('div');
 		this.input = document.createElement('input');
 		this.dropdown = document.createElement('ul');
-		this.values = document.createElement('ul');
 
 		this.wrapper.className = 'select';
-		this.inputWrapper.className = 'select__input';
 		this.dropdown.className = 'select__dropdown';
 
-		this.wrapper.append(this.inputWrapper);
+		if (this.original.multiple) {
+			var inputWrapper = document.createElement('div');
+			this.values = document.createElement('ul');
+			inputWrapper.className = 'select__input';
+			inputWrapper.append(this.values);
+			inputWrapper.append(this.input);
+			this.wrapper.append(inputWrapper);
+		} else {
+			this.wrapper.append(this.input);
+		}
+
 		this.wrapper.append(this.dropdown);
-		this.inputWrapper.append(this.values);
-		this.inputWrapper.append(this.input);
 
 		this.wrapper.setAttribute('role', 'combobox');
 		this.wrapper.setAttribute('aria-expanded', 'false');
@@ -71,7 +76,7 @@ class Select {
 		if (this.focus !== -1 && this.dropdown.children.length) {
 			Array.from(this.dropdown.children).forEach((li, i) => {
 				li.classList.toggle('select--has-focus', i === this.focus);
-				li.classList.toggle('select--selected', this.original.options[this.indexMap[i]].selected);
+				li.classList.toggle('select--selected', this.original.multiple && this.original.options[this.indexMap[i]].selected);
 			});
 			this.wrapper.setAttribute('aria-expanded', 'true');
 			this.input.setAttribute('aria-activedescendant', this.id + '_option_' + this.indexMap[this.focus]);
@@ -82,19 +87,25 @@ class Select {
 	}
 
 	updateValue() {
-		this.input.value = '';
-		this.values.innerHTML = '';
-		Array.from(this.original.options).forEach((op, i) => {
-			if (op.selected) {
-				var li = document.createElement('li');
-				li.textContent = op.label;
-				li.onclick = () => {
-					this.original.options[i].selected = false;
-					li.remove();
-				};
-				this.values.append(li);
+		if (this.original.multiple) {
+			this.input.value = '';
+			this.values.innerHTML = '';
+			Array.from(this.original.options).forEach((op, i) => {
+				if (op.selected) {
+					var li = document.createElement('li');
+					li.textContent = op.label;
+					li.onclick = () => {
+						this.original.options[i].selected = false;
+						li.remove();
+					};
+					this.values.append(li);
+				}
+			});
+		} else {
+			if (this.original.selectedOptions.length) {
+				this.input.value = this.original.selectedOptions[0].label;
 			}
-		});
+		}
 	}
 
 	open() {
@@ -107,7 +118,7 @@ class Select {
 				li.id = this.id + '_option_' + i;
 				li.textContent = op.label;
 				li.onclick = () => {
-					this.setValue(i, true);
+					this.setValue(i, this.original.multiple);
 					this.input.focus();
 				};
 				this.dropdown.append(li);
@@ -174,7 +185,7 @@ class Select {
 				this.open();
 			}
 		}
-		if (!this.input.value && event.keyCode === KEYS.BACKSPACE) {
+		if (this.original.multiple && !this.input.value && event.keyCode === KEYS.BACKSPACE) {
 			event.preventDefault();
 			var n = this.original.selectedOptions.length;
 			if (n) {
