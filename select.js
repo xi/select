@@ -204,7 +204,12 @@ class Select {
 
 	onblur(event) {
 		if (event.relatedTarget !== this.dropdown) {
-			if (this.indexMap.length) {
+			if (!this.input.value) {
+				if (!this.original.multiple) {
+					this.original.value = '';
+				}
+				this.close();
+			} else if (this.indexMap.length) {
 				this.setValue(this.indexMap[this.focus]);
 			}
 			if (!this.original.checkValidity()) {
