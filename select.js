@@ -49,6 +49,10 @@ class Select {
 				this.close();
 			}
 		};
+
+		if (this.original.selectedOptions.length) {
+			this.input.value = this.original.selectedOptions[0].label;
+		}
 	}
 
 	update() {
