@@ -1,0 +1,19 @@
+{
+  "name": "select",
+  "version": "0.0.0",
+  "description": "Better select widgets in vanilla javascript",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xi/select.git"
+  },
+  "keywords": ["select2"],
+  "author": "Tobias Bengfort <tobias.bengfort@posteo.de>",
+  "license": "MIT",
+  "homepage": "https://github.com/xi/select",
+  "files": [
+    "select.js",
+    "select.css",
+    "README.md",
+    "LICENSE"
+  ]
+}
