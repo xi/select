@@ -24,7 +24,7 @@
 	max-height: 10em;
 	overflow-y: auto;
 }
-.select[aria-expanded="false"] > ul {
+.select > ul:empty {
 	display: none;
 }
 
