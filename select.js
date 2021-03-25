@@ -115,7 +115,7 @@ class Select {
 		this.dropdown.innerHTML = '';
 		this.indexMap = [];
 		Array.from(this.original.options).forEach((op, i) => {
-			if (complete || this.isMatch(op.label)) {
+			if (op.label && (complete || this.isMatch(op.label))) {
 				var li = document.createElement('li');
 				li.id = this.id + '_option_' + i;
 				li.textContent = op.label;
