@@ -91,7 +91,7 @@ class Select {
 			this.input.value = '';
 			this.values.innerHTML = '';
 			Array.from(this.original.options).forEach((op, i) => {
-				if (op.selected) {
+				if (op.selected && op.label) {
 					var li = document.createElement('li');
 					li.textContent = op.label;
 					li.onclick = () => {
