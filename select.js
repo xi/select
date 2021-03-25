@@ -34,7 +34,7 @@ class Select {
 		this.wrapper.setAttribute('aria-has-popup', 'listbox');
 		this.input.setAttribute('aria-autocomplete', 'list');
 		this.ul.setAttribute('role', 'listbox');
-		this.ul.setAttribute('aria-labelledby', 'TODO');
+		// this.ul.setAttribute('aria-labelledby', 'TODO');
 		this.ul.tabIndex = -1;
 
 		this.input.onkeydown = this.onkeydown.bind(this);
