@@ -1,17 +1,20 @@
 ?	split between value and search
 ?	optgroups
+?	show all options in some cases
+	-	initial open (not filter)
+	-	input.value === selected.label
+	-	if only one match
+	-	if only one match that is equal to value
+-	multi wrap click -> on whole fake input
 
 -	split into reusable parts
 	-	dropdown
 	-	setValue
 
 -	options
-	-	multiple
+	X	multiple
 	-	required
 	-	new options
--	additional options
-	-	disabled
-	-	readonly
 
 # references
 
