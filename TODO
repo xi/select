@@ -1,30 +1,22 @@
 ?	split between value and search
 ?	optgroups
 
--	other backends
-	-	multi
-	-	add new options
-
-https://www.w3.org/TR/wai-aria-practices/#combobox
-https://www.w3.org/TR/wai-aria-practices/examples/combobox/aria1.1pattern/listbox-combo.html
-
 -	split into reusable parts
 	-	dropdown
 	-	setValue
 
+-	options
+	-	multiple
+	-	required
+	-	new options
+-	additional options
+	-	disabled
+	-	readonly
 
-datalist
--	clicks
-	-	initial: focus
-	-	then: toggle open
--	list focus
-	-	none selected initally
-	-	wraps
-		-	includes "none selected"
--	list closed on empty str or no match
--	match
-	-	any substr, case insensitive
--	on input
-	-	none selected
--	on left/right
-	-	close
+# references
+
+-	datalist
+-	aria combobox
+	-	https://www.w3.org/TR/wai-aria-practices/#combobox
+	-	https://www.w3.org/TR/wai-aria-practices/examples/combobox/aria1.1pattern/listbox-combo.html
+-	select2
