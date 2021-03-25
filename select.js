@@ -4,9 +4,7 @@ var KEYS = {
 	ESC: 27,
 	PAGE_UP: 33,
 	PAGE_DOWN: 34,
-	LEFT: 37,
 	UP: 38,
-	RIGHT: 39,
 	DOWN: 40,
 };
 
@@ -181,11 +179,7 @@ class Select {
 			} else if (event.keyCode === KEYS.ENTER) {
 				event.preventDefault();
 				this.setValue(this.indexMap[this.focus]);
-			} else if (
-				event.keyCode === KEYS.ESC
-				|| event.keyCode === KEYS.LEFT
-				|| event.keyCode === KEYS.RIGHT
-			) {
+			} else if (event.keyCode === KEYS.ESC) {
 				this.close();
 			}
 		} else {
