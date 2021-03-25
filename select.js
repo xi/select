@@ -156,6 +156,14 @@ class Select {
 		this.updateValue();
 	}
 
+	hasTemporaryValue() {
+		if (this.original.multiple) {
+			return this.input.value;
+		} else {
+			return this.input.value !== this.original.selectedOptions[0].label;
+		}
+	}
+
 	onkeydown(event) {
 		if (this.focus !== -1) {
 			if (event.keyCode === KEYS.DOWN) {
@@ -212,7 +220,9 @@ class Select {
 			if (this.indexMap.length) {
 				this.setValue(this.indexMap[this.focus]);
 			}
-			if (!this.original.checkValidity()) {
+			if (this.hasTemporaryValue()) {
+				this.input.setCustomValidity('temporary value');
+			} else if (!this.original.checkValidity()) {
 				this.input.setCustomValidity(this.original.validationMessage);
 			}
 			this.close();
