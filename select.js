@@ -1,4 +1,5 @@
 var KEYS = {
+	BACKSPACE: 8,
 	ENTER: 13,
 	ESC: 27,
 	PAGE_UP: 33,
@@ -171,6 +172,16 @@ class Select {
 			if (event.keyCode === KEYS.DOWN) {
 				event.preventDefault();
 				this.open();
+			}
+		}
+		if (!this.input.value && event.keyCode === KEYS.BACKSPACE) {
+			event.preventDefault();
+			var n = this.original.selectedOptions.length;
+			if (n) {
+				var op = this.original.selectedOptions[n - 1];
+				op.selected = false;
+				this.updateValue();
+				this.input.value = op.label;
 			}
 		}
 	}
