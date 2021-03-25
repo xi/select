@@ -1,3 +1,5 @@
+var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
 var KEYS = {
 	BACKSPACE: 8,
 	ENTER: 13,
@@ -8,7 +10,16 @@ var KEYS = {
 	DOWN: 40,
 };
 
-class Select {
+var randomString = function(length) {
+	var result = [];
+	for (var i = 0; i < length; i++) {
+		var k = Math.floor(Math.random() * chars.length);
+		result.push(chars[k]);
+	}
+	return result.join('');
+};
+
+export class Select {
 	constructor(id, original) {
 		this.id = id;
 		this.original = original;
@@ -219,4 +230,6 @@ class Select {
 	}
 }
 
-new Select('id_select', document.querySelector('select'));
+Array.from(document.querySelectorAll('[data-select]')).forEach(el => {
+	new Select(randomString(8), el);
+});
