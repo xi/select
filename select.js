@@ -32,11 +32,14 @@ class Select {
 		this.wrapper.append(this.input);
 		this.wrapper.append(this.dropdown);
 
+		this.wrapper.setAttribute('role', 'combobox');
 		this.wrapper.setAttribute('aria-expanded', 'false');
 		this.wrapper.setAttribute('aria-has-popup', 'listbox');
 		this.input.setAttribute('aria-autocomplete', 'list');
 		this.dropdown.setAttribute('role', 'listbox');
 		// this.dropdown.setAttribute('aria-labelledby', 'TODO');
+
+		this.input.autocomplete = 'off';
 		this.dropdown.tabIndex = -1;
 
 		this.input.onkeydown = this.onkeydown.bind(this);
