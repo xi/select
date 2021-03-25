@@ -81,6 +81,18 @@ class Select {
 
 	updateValue() {
 		this.input.value = '';
+		this.values.innerHTML = '';
+		Array.from(this.original.options).forEach((op, i) => {
+			if (op.selected) {
+				var li = document.createElement('li');
+				li.textContent = op.label;
+				li.onclick = () => {
+					this.original.options[i].selected = false;
+					li.remove();
+				};
+				this.values.append(li);
+			}
+		});
 	}
 
 	open() {
