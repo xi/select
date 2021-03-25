@@ -1,0 +1,17 @@
+[hidden] {
+	display: none !important;
+}
+
+body {
+	max-width: 40em;
+	margin: 0 auto;
+	padding: 1em;
+}
+
+select,
+.select,
+input {
+	display: block;
+	width: 100%;
+	box-sizing: border-box;
+}
