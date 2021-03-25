@@ -53,9 +53,7 @@ class Select {
 			}
 		};
 
-		if (this.original.selectedOptions.length) {
-			this.input.value = this.original.selectedOptions[0].label;
-		}
+		this.updateValue();
 	}
 
 	update() {
@@ -68,6 +66,12 @@ class Select {
 		} else {
 			this.wrapper.setAttribute('aria-expanded', 'false');
 			this.input.setAttribute('aria-activedescendant', '');
+		}
+	}
+
+	updateValue() {
+		if (this.original.selectedOptions.length) {
+			this.input.value = this.original.selectedOptions[0].label;
 		}
 	}
 
@@ -108,12 +112,12 @@ class Select {
 	}
 
 	setValue(i) {
-		this.input.value = this.original.options[i].label;
-		this.input.setCustomValidity('');
 		this.original.options[i].selected = true;
 		this.original.dispatchEvent(new Event('change'));
 		this.close();
 		this.update();
+		this.updateValue();
+		this.input.setCustomValidity('');
 	}
 
 	onkeydown(event) {
