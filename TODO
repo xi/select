@@ -1,10 +1,5 @@
 ?	split between value and search
 ?	optgroups
-?	show all options in some cases
-	-	initial open (not filter)
-	-	input.value === selected.label
-	-	if only one match
-	-	if only one match that is equal to value
 
 -	split into reusable parts
 	-	dropdown

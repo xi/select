@@ -59,7 +59,7 @@ class Select {
 		this.input.onblur = this.onblur.bind(this);
 		this.input.onclick = () => {
 			if (this.focus === -1) {
-				this.open();
+				this.open(true);
 			} else {
 				this.close();
 			}
@@ -109,12 +109,12 @@ class Select {
 		}
 	}
 
-	open() {
+	open(complete) {
 		this.focus = 0;
 		this.dropdown.innerHTML = '';
 		this.indexMap = [];
 		Array.from(this.original.options).forEach((op, i) => {
-			if (this.isMatch(op.label)) {
+			if (complete || this.isMatch(op.label)) {
 				var li = document.createElement('li');
 				li.id = this.id + '_option_' + i;
 				li.textContent = op.label;
@@ -183,7 +183,7 @@ class Select {
 		} else {
 			if (event.keyCode === KEYS.DOWN) {
 				event.preventDefault();
-				this.open();
+				this.open(true);
 			}
 		}
 		if (this.original.multiple && !this.input.value && event.keyCode === KEYS.BACKSPACE) {
@@ -199,7 +199,7 @@ class Select {
 	}
 
 	oninput(event) {
-		this.open();
+		this.open(false);
 		if (Array.from(this.original.options).some(op => this.isMatch(op.label))) {
 			this.input.setCustomValidity('');
 		} else {
