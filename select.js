@@ -81,6 +81,7 @@ class Select {
 			});
 			this.wrapper.setAttribute('aria-expanded', 'true');
 			this.input.setAttribute('aria-activedescendant', this.id + '_option_' + this.indexMap[this.focus]);
+			this.dropdown.children[this.focus].scrollIntoView({block: 'nearest'});
 		} else {
 			this.wrapper.setAttribute('aria-expanded', 'false');
 			this.input.setAttribute('aria-activedescendant', '');
@@ -140,7 +141,6 @@ class Select {
 		this.focus += k;
 		this.focus = Math.max(this.focus, 0);
 		this.focus = Math.min(this.focus, this.dropdown.children.length - 1);
-		this.dropdown.children[this.focus].scrollIntoView({block: 'nearest'});
 		this.update();
 	}
 
