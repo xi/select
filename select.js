@@ -212,6 +212,9 @@ class Select {
 			if (this.indexMap.length) {
 				this.setValue(this.indexMap[this.focus]);
 			}
+			if (!this.original.checkValidity()) {
+				this.input.setCustomValidity(this.original.validationMessage);
+			}
 			this.close();
 		}
 	}
