@@ -10,7 +10,7 @@
 	box-sizing: border-box;
 }
 
-.select > ul {
+.select__dropdown {
 	position: absolute;
 	list-style: none;
 	margin: 0;
@@ -24,22 +24,22 @@
 	max-height: 10em;
 	overflow-y: auto;
 }
-.select > ul:empty {
+.select__dropdown:empty {
 	display: none;
 }
 
-.select li {
+.select__dropdown li {
 	padding: 0.2em 0.4em;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	cursor: default;
 }
-.select li:hover {
+.select__dropdown li:hover {
 	background: rgba(128,128,128,.2);
 	color: inherit;
 }
-.select li.select--has-focus {
+.select__dropdown li.select--has-focus {
 	background: Highlight;
 	color: HighlightText;
 }

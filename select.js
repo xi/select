@@ -24,18 +24,20 @@ class Select {
 	createElements() {
 		this.wrapper = document.createElement('div');
 		this.input = document.createElement('input');
-		this.ul = document.createElement('ul');
+		this.dropdown = document.createElement('ul');
 
 		this.wrapper.className = 'select';
+		this.dropdown.className = 'select__dropdown';
+
 		this.wrapper.append(this.input);
-		this.wrapper.append(this.ul);
+		this.wrapper.append(this.dropdown);
 
 		this.wrapper.setAttribute('aria-expanded', 'false');
 		this.wrapper.setAttribute('aria-has-popup', 'listbox');
 		this.input.setAttribute('aria-autocomplete', 'list');
-		this.ul.setAttribute('role', 'listbox');
-		// this.ul.setAttribute('aria-labelledby', 'TODO');
-		this.ul.tabIndex = -1;
+		this.dropdown.setAttribute('role', 'listbox');
+		// this.dropdown.setAttribute('aria-labelledby', 'TODO');
+		this.dropdown.tabIndex = -1;
 
 		this.input.onkeydown = this.onkeydown.bind(this);
 		this.input.oninput = this.oninput.bind(this);
@@ -50,8 +52,8 @@ class Select {
 	}
 
 	update() {
-		if (this.focus !== -1 && this.ul.children.length) {
-			Array.from(this.ul.children).forEach((li, i) => {
+		if (this.focus !== -1 && this.dropdown.children.length) {
+			Array.from(this.dropdown.children).forEach((li, i) => {
 				li.classList.toggle('select--has-focus', i === this.focus);
 			});
 			this.wrapper.setAttribute('aria-expanded', 'true');
@@ -65,7 +67,7 @@ class Select {
 	open() {
 		var q = this.input.value.toLowerCase();
 		this.focus = 0;
-		this.ul.innerHTML = '';
+		this.dropdown.innerHTML = '';
 		this.indexMap = [];
 		Array.from(this.original.options).forEach((op, i) => {
 			if (op.label.toLowerCase().indexOf(q) !== -1) {
@@ -76,7 +78,7 @@ class Select {
 					this.setValue(i);
 					this.input.focus();
 				};
-				this.ul.append(li);
+				this.dropdown.append(li);
 				this.indexMap.push(i);
 			}
 		});
@@ -85,7 +87,7 @@ class Select {
 
 	close() {
 		this.focus = -1;
-		this.ul.innerHTML = '';
+		this.dropdown.innerHTML = '';
 		this.indexMap = [];
 		this.update();
 	}
@@ -93,8 +95,8 @@ class Select {
 	moveFocus(k) {
 		this.focus += k;
 		this.focus = Math.max(this.focus, 0);
-		this.focus = Math.min(this.focus, this.ul.children.length - 1);
-		this.ul.children[this.focus].scrollIntoView({block: 'nearest'});
+		this.focus = Math.min(this.focus, this.dropdown.children.length - 1);
+		this.dropdown.children[this.focus].scrollIntoView({block: 'nearest'});
 		this.update();
 	}
 
@@ -144,7 +146,7 @@ class Select {
 	}
 
 	onblur(event) {
-		if (event.relatedTarget !== this.ul) {
+		if (event.relatedTarget !== this.dropdown) {
 			if (this.indexMap.length) {
 				this.setValue(this.indexMap[this.focus]);
 			}
