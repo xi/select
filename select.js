@@ -51,6 +51,7 @@ class Select {
 		// this.dropdown.setAttribute('aria-labelledby', 'TODO');
 
 		this.input.autocomplete = 'off';
+		this.input.disabled = this.original.disabled;
 		this.dropdown.tabIndex = -1;
 
 		this.input.onkeydown = this.onkeydown.bind(this);
