@@ -19,7 +19,7 @@ class Select {
 
 		this.createElements();
 		original.hidden = true;
-		original.after(this.wrapper);
+		original.before(this.wrapper);
 	}
 
 	createElements() {
