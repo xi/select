@@ -1,4 +1,5 @@
 var KEYS = {
+	BACKSPACE: 8,
 	ENTER: 13,
 	ESC: 27,
 	PAGE_UP: 33,
@@ -29,7 +30,17 @@ class Select {
 		this.wrapper.className = 'select';
 		this.dropdown.className = 'select__dropdown';
 
-		this.wrapper.append(this.input);
+		if (this.original.multiple) {
+			var inputWrapper = document.createElement('div');
+			this.values = document.createElement('ul');
+			inputWrapper.className = 'select__input';
+			inputWrapper.append(this.values);
+			inputWrapper.append(this.input);
+			this.wrapper.append(inputWrapper);
+		} else {
+			this.wrapper.append(this.input);
+		}
+
 		this.wrapper.append(this.dropdown);
 
 		this.wrapper.setAttribute('role', 'combobox');
@@ -65,6 +76,7 @@ class Select {
 		if (this.focus !== -1 && this.dropdown.children.length) {
 			Array.from(this.dropdown.children).forEach((li, i) => {
 				li.classList.toggle('select--has-focus', i === this.focus);
+				li.classList.toggle('select--selected', this.original.multiple && this.original.options[this.indexMap[i]].selected);
 			});
 			this.wrapper.setAttribute('aria-expanded', 'true');
 			this.input.setAttribute('aria-activedescendant', this.id + '_option_' + this.indexMap[this.focus]);
@@ -75,8 +87,24 @@ class Select {
 	}
 
 	updateValue() {
-		if (this.original.selectedOptions.length) {
-			this.input.value = this.original.selectedOptions[0].label;
+		if (this.original.multiple) {
+			this.input.value = '';
+			this.values.innerHTML = '';
+			Array.from(this.original.options).forEach((op, i) => {
+				if (op.selected) {
+					var li = document.createElement('li');
+					li.textContent = op.label;
+					li.onclick = () => {
+						this.original.options[i].selected = false;
+						li.remove();
+					};
+					this.values.append(li);
+				}
+			});
+		} else {
+			if (this.original.selectedOptions.length) {
+				this.input.value = this.original.selectedOptions[0].label;
+			}
 		}
 	}
 
@@ -90,7 +118,7 @@ class Select {
 				li.id = this.id + '_option_' + i;
 				li.textContent = op.label;
 				li.onclick = () => {
-					this.setValue(i);
+					this.setValue(i, this.original.multiple);
 					this.input.focus();
 				};
 				this.dropdown.append(li);
@@ -115,8 +143,12 @@ class Select {
 		this.update();
 	}
 
-	setValue(i) {
-		this.original.options[i].selected = true;
+	setValue(i, toggle) {
+		if (toggle) {
+			this.original.options[i].selected = !this.original.options[i].selected;
+		} else {
+			this.original.options[i].selected = true;
+		}
 		this.original.dispatchEvent(new Event('change'));
 		this.close();
 		this.update();
@@ -151,6 +183,16 @@ class Select {
 			if (event.keyCode === KEYS.DOWN) {
 				event.preventDefault();
 				this.open();
+			}
+		}
+		if (this.original.multiple && !this.input.value && event.keyCode === KEYS.BACKSPACE) {
+			event.preventDefault();
+			var n = this.original.selectedOptions.length;
+			if (n) {
+				var op = this.original.selectedOptions[n - 1];
+				op.selected = false;
+				this.updateValue();
+				this.input.value = op.label;
 			}
 		}
 	}
