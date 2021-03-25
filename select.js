@@ -121,7 +121,6 @@ class Select {
 		this.close();
 		this.update();
 		this.updateValue();
-		this.input.setCustomValidity('');
 	}
 
 	onkeydown(event) {
@@ -158,17 +157,17 @@ class Select {
 
 	oninput(event) {
 		this.open();
+		if (Array.from(this.original.options).some(op => this.isMatch(op.label))) {
+			this.input.setCustomValidity('');
+		} else {
+			this.input.setCustomValidity('invalid choice');
+		}
 	}
 
 	onblur(event) {
 		if (event.relatedTarget !== this.dropdown) {
 			if (this.indexMap.length) {
 				this.setValue(this.indexMap[this.focus]);
-			}
-			if (this.input.value === this.original.selectedOptions[0].label) {
-				this.input.setCustomValidity('');
-			} else {
-				this.input.setCustomValidity('invalid choice');
 			}
 			this.close();
 		}
