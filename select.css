@@ -35,6 +35,7 @@
 	text-overflow: ellipsis;
 	cursor: default;
 }
+.select__dropdown li.select--selected,
 .select__dropdown li:hover {
 	background: rgba(128,128,128,.2);
 	color: inherit;

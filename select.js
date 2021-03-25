@@ -70,6 +70,7 @@ class Select {
 		if (this.focus !== -1 && this.dropdown.children.length) {
 			Array.from(this.dropdown.children).forEach((li, i) => {
 				li.classList.toggle('select--has-focus', i === this.focus);
+				li.classList.toggle('select--selected', this.original.options[this.indexMap[i]].selected);
 			});
 			this.wrapper.setAttribute('aria-expanded', 'true');
 			this.input.setAttribute('aria-activedescendant', this.id + '_option_' + this.indexMap[this.focus]);
