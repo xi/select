@@ -14,6 +14,12 @@ The code is intentionally very simple and close to browser defaults.
 </script>
 ```
 
+# Mobile support
+
+This library does work on mobile. However, select usability on mobile is
+usually far superior to that on desktop. Therefore it is recommended to only
+use this on desktop.
+
 ## Roadmap
 
 -	refactor constructor args
