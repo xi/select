@@ -205,7 +205,11 @@ export class Select {
 	}
 
 	oninput(event) {
-		this.open(false);
+		if (this.input.value) {
+			this.open(false);
+		} else {
+			this.close();
+		}
 		if (Array.from(this.original.options).some(op => this.isMatch(op.label))) {
 			this.input.setCustomValidity('');
 		} else {
