@@ -85,8 +85,10 @@ export class Select {
 	update() {
 		if (this.focus !== -1 && this.dropdown.children.length) {
 			Array.from(this.dropdown.children).forEach((li, i) => {
+				var op = this.original.options[this.indexMap[i]];
 				li.classList.toggle('select--has-focus', i === this.focus);
-				li.classList.toggle('select--selected', this.original.multiple && this.original.options[this.indexMap[i]].selected);
+				li.classList.toggle('select--selected', this.original.multiple && op.selected);
+				li.setAttribute('aria-selected', op.selected);
 			});
 			this.wrapper.setAttribute('aria-expanded', 'true');
 			this.input.setAttribute('aria-activedescendant', this.id + '_option_' + this.indexMap[this.focus]);
@@ -128,6 +130,7 @@ export class Select {
 				var li = document.createElement('li');
 				li.id = this.id + '_option_' + i;
 				li.textContent = op.label;
+				li.setAttribute('role', 'option');
 				li.onclick = () => {
 					this.setValue(i, this.original.multiple);
 					this.input.focus();
