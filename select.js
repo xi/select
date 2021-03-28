@@ -127,10 +127,14 @@ export class Select {
 		li.id = this.id + '_option_' + i;
 		li.textContent = op.label;
 		li.setAttribute('role', 'option');
-		li.onclick = () => {
-			this.setValue(i, this.original.multiple);
-			this.input.focus();
-		};
+		if (op.disabled) {
+			li.setAttribute('aria-disabled', 'true');
+		} else {
+			li.onclick = () => {
+				this.setValue(i, this.original.multiple);
+				this.input.focus();
+			};
+		}
 		this.indexMap.push(i);
 		return li;
 	}

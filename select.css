@@ -46,6 +46,10 @@
 	background: Highlight;
 	color: HighlightText;
 }
+.select__dropdown [role="option"][aria-disabled="true"] {
+	background: transparent;
+	color: GrayText;
+}
 .select__dropdown ul {
 	margin: 0;
 	padding: 0;
