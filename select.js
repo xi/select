@@ -111,6 +111,7 @@ export class Select {
 					li.onclick = () => {
 						this.original.options[i].selected = false;
 						li.remove();
+						this.input.focus();
 					};
 					this.values.append(li);
 				}
