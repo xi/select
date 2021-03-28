@@ -29,21 +29,29 @@
 	display: none;
 }
 
-.select__dropdown li {
+.select__dropdown [role="option"],
+.select__dropdown strong {
 	padding: 0.2em 0.4em;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	cursor: default;
 }
-.select__dropdown li.select--selected,
-.select__dropdown li:hover {
+.select__dropdown [role="option"].select--selected,
+.select__dropdown [role="option"]:hover {
 	background: rgba(128,128,128,.2);
 	color: inherit;
 }
-.select__dropdown li.select--has-focus {
+.select__dropdown [role="option"].select--has-focus {
 	background: Highlight;
 	color: HighlightText;
+}
+.select__dropdown ul {
+	margin: 0;
+	padding: 0;
+}
+.select__dropdown ul [role="option"] {
+	padding-left: 2em;
 }
 
 .select__input > ul {

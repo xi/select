@@ -17,7 +17,6 @@ The code is intentionally very simple and close to browser defaults.
 ## Roadmap
 
 -	refactor constructor args
--	optgroups
 -	dynamic option creation
 -	localization
 -	allowClear

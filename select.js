@@ -83,8 +83,9 @@ export class Select {
 	}
 
 	update() {
-		if (this.focus !== -1 && this.dropdown.children.length) {
-			Array.from(this.dropdown.children).forEach((li, i) => {
+		var options = this.dropdown.querySelectorAll('[role="option"]');
+		if (this.focus !== -1 && options.length) {
+			Array.from(options).forEach((li, i) => {
 				var op = this.original.options[this.indexMap[i]];
 				li.classList.toggle('select--has-focus', i === this.focus);
 				li.classList.toggle('select--selected', this.original.multiple && op.selected);
@@ -92,7 +93,7 @@ export class Select {
 			});
 			this.wrapper.setAttribute('aria-expanded', 'true');
 			this.input.setAttribute('aria-activedescendant', this.id + '_option_' + this.indexMap[this.focus]);
-			this.dropdown.children[this.focus].scrollIntoView({block: 'nearest'});
+			options[this.focus].scrollIntoView({block: 'nearest'});
 		} else {
 			this.wrapper.setAttribute('aria-expanded', 'false');
 			this.input.setAttribute('aria-activedescendant', '');
@@ -121,22 +122,48 @@ export class Select {
 		}
 	}
 
+	createOption(op, i) {
+		var li = document.createElement('li');
+		li.id = this.id + '_option_' + i;
+		li.textContent = op.label;
+		li.setAttribute('role', 'option');
+		li.onclick = () => {
+			this.setValue(i, this.original.multiple);
+			this.input.focus();
+		};
+		this.indexMap.push(i);
+		return li;
+	}
+
 	open(complete) {
 		this.focus = 0;
 		this.dropdown.innerHTML = '';
 		this.indexMap = [];
-		Array.from(this.original.options).forEach((op, i) => {
-			if (op.label && (complete || this.isMatch(op.label))) {
-				var li = document.createElement('li');
-				li.id = this.id + '_option_' + i;
-				li.textContent = op.label;
-				li.setAttribute('role', 'option');
-				li.onclick = () => {
-					this.setValue(i, this.original.multiple);
-					this.input.focus();
-				};
-				this.dropdown.append(li);
-				this.indexMap.push(i);
+		var i = 0;
+		Array.from(this.original.children).forEach(child => {
+			if (child.tagName === 'OPTION') {
+				if (child.label && (complete || this.isMatch(child.label))) {
+					this.dropdown.append(this.createOption(child, i));
+				}
+				i += 1;
+			} else {
+				var group = document.createElement('li');
+				var label = document.createElement('strong');
+				var ul = document.createElement('ul');
+				group.setAttribute('role', 'group');
+				label.textContent = child.label;
+				ul.setAttribute('role', 'none');
+				group.append(label);
+				group.append(ul);
+				Array.from(child.children).forEach(c => {
+					if (c.label && (complete || this.isMatch(c.label))) {
+						ul.append(this.createOption(c, i));
+					}
+					i += 1;
+				});
+				if (ul.children.length) {
+					this.dropdown.append(group);
+				}
 			}
 		});
 		this.update();
@@ -150,9 +177,10 @@ export class Select {
 	}
 
 	moveFocus(k) {
+		var options = this.dropdown.querySelectorAll('[role="option"]');
 		this.focus += k;
 		this.focus = Math.max(this.focus, 0);
-		this.focus = Math.min(this.focus, this.dropdown.children.length - 1);
+		this.focus = Math.min(this.focus, options.length - 1);
 		this.update();
 	}
 
