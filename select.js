@@ -19,6 +19,12 @@ var randomString = function(length) {
 	return result.join('');
 };
 
+var create = function(html) {
+	var div = document.createElement('div');
+	div.innerHTML = html;
+	return div.children[0];
+};
+
 export class Select {
 	constructor(id, original) {
 		this.id = id;
@@ -32,17 +38,13 @@ export class Select {
 	}
 
 	createElements() {
-		this.wrapper = document.createElement('div');
-		this.input = document.createElement('input');
-		this.dropdown = document.createElement('ul');
-
-		this.wrapper.className = 'select';
-		this.dropdown.className = 'select__dropdown';
+		this.wrapper = create('<div class="select" role="combobox" aria-expanded="false" aria-has-popup="listbox">');
+		this.input = create('<input aria-autocomplete="list" autocomplete="off">');
+		this.dropdown = create('<ul class="select__dropdown" role="listbox" tabindex="-1">');
 
 		if (this.original.multiple) {
-			var inputWrapper = document.createElement('div');
-			this.values = document.createElement('ul');
-			inputWrapper.className = 'select__input';
+			var inputWrapper = create('<div class="select__input">');
+			this.values = create('<ul>')
 			inputWrapper.append(this.values);
 			inputWrapper.append(this.input);
 			this.wrapper.append(inputWrapper);
@@ -52,16 +54,8 @@ export class Select {
 
 		this.wrapper.append(this.dropdown);
 
-		this.wrapper.setAttribute('role', 'combobox');
-		this.wrapper.setAttribute('aria-expanded', 'false');
-		this.wrapper.setAttribute('aria-has-popup', 'listbox');
-		this.input.setAttribute('aria-autocomplete', 'list');
-		this.dropdown.setAttribute('role', 'listbox');
-		// this.dropdown.setAttribute('aria-labelledby', 'TODO');
-
-		this.input.autocomplete = 'off';
 		this.input.disabled = this.original.disabled;
-		this.dropdown.tabIndex = -1;
+		// this.dropdown.setAttribute('aria-labelledby', 'TODO');
 
 		this.input.onkeydown = this.onkeydown.bind(this);
 		this.input.oninput = this.oninput.bind(this);
@@ -106,7 +100,7 @@ export class Select {
 			this.values.innerHTML = '';
 			Array.from(this.original.options).forEach((op, i) => {
 				if (op.selected && op.label) {
-					var li = document.createElement('li');
+					var li = create('<li>');
 					li.textContent = op.label;
 					li.onclick = () => {
 						this.original.options[i].selected = false;
@@ -124,10 +118,9 @@ export class Select {
 	}
 
 	createOption(op, i) {
-		var li = document.createElement('li');
+		var li = create('<li role="option">');
 		li.id = this.id + '_option_' + i;
 		li.textContent = op.label;
-		li.setAttribute('role', 'option');
 		if (op.disabled) {
 			li.setAttribute('aria-disabled', 'true');
 		} else {
@@ -152,12 +145,10 @@ export class Select {
 				}
 				i += 1;
 			} else {
-				var group = document.createElement('li');
-				var label = document.createElement('strong');
-				var ul = document.createElement('ul');
-				group.setAttribute('role', 'group');
+				var group = create('<li role="group">');
+				var label = create('<strong>');
+				var ul = create('<ul role="none">');
 				label.textContent = child.label;
-				ul.setAttribute('role', 'none');
 				group.append(label);
 				group.append(ul);
 				Array.from(child.children).forEach(c => {
