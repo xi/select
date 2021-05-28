@@ -244,18 +244,20 @@ export class Select {
 	}
 
 	onblur(event) {
-		if (event.relatedTarget !== this.dropdown) {
-			if (!this.input.value) {
-				if (!this.original.multiple) {
-					this.original.value = '';
-				}
-				this.close();
-			} else if (this.indexMap.length) {
-				this.setValue(this.indexMap[this.focus]);
+		if (event.relatedTarget === this.dropdown) {
+			return;
+		}
+
+		if (!this.input.value) {
+			if (!this.original.multiple) {
+				this.original.value = '';
 			}
-			if (!this.original.checkValidity()) {
-				this.input.setCustomValidity(this.original.validationMessage);
-			}
+			this.close();
+		} else if (this.indexMap.length) {
+			this.setValue(this.indexMap[this.focus]);
+		}
+		if (!this.original.checkValidity()) {
+			this.input.setCustomValidity(this.original.validationMessage);
 		}
 	}
 }
