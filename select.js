@@ -68,6 +68,12 @@ export class Select {
 			}
 		};
 
+		// Prevent blurring input. This also ensures dragging the cursor away from
+		// the list item will cancel the selection
+		this.dropdown.onmousedown = event => {
+			event.preventDefault();
+		};
+
 		this.updateValue();
 	}
 
@@ -244,10 +250,6 @@ export class Select {
 	}
 
 	onblur(event) {
-		if (event.relatedTarget === this.dropdown) {
-			return;
-		}
-
 		if (!this.input.value) {
 			if (!this.original.multiple) {
 				this.original.value = '';
