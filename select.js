@@ -173,10 +173,9 @@ export class Select {
 	}
 
 	moveFocus(k) {
-		var options = this.dropdown.querySelectorAll('[role="option"]');
 		this.focus += k;
 		this.focus = Math.max(this.focus, 0);
-		this.focus = Math.min(this.focus, options.length - 1);
+		this.focus = Math.min(this.focus, this.indexMap.length - 1);
 		this.update();
 	}
 
