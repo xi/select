@@ -133,14 +133,14 @@ export class Select {
 		return li;
 	}
 
-	open(complete) {
+	open(forceAll) {
 		this.focus = 0;
 		this.dropdown.innerHTML = '';
 		this.indexMap = [];
 		var i = 0;
 		Array.from(this.original.children).forEach(child => {
 			if (child.tagName === 'OPTION') {
-				if (child.label && (complete || this.isMatch(child.label))) {
+				if (child.label && (forceAll || this.isMatch(child.label))) {
 					this.dropdown.append(this.createOption(child, i));
 				}
 				i += 1;
@@ -152,7 +152,7 @@ export class Select {
 				group.append(label);
 				group.append(ul);
 				Array.from(child.children).forEach(c => {
-					if (c.label && (complete || this.isMatch(c.label))) {
+					if (c.label && (forceAll || this.isMatch(c.label))) {
 						ul.append(this.createOption(c, i));
 					}
 					i += 1;
