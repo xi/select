@@ -58,12 +58,12 @@
 	padding-left: 2em;
 }
 
-.select__input > ul {
+.select__values {
 	display: inline;
 	padding: 0;
 	margin: 0;
 }
-.select__input li {
+.select__values li {
 	display: inline-block;
 	margin: 0.1em 0.2em;
 	margin-inline-start: 0;

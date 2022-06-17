@@ -44,7 +44,7 @@ export class Select {
 
 		if (this.original.multiple) {
 			var inputWrapper = create('<div class="select__input">');
-			this.values = create('<ul>')
+			this.values = create('<ul class="select__values">')
 			inputWrapper.append(this.values);
 			inputWrapper.append(this.input);
 			this.wrapper.append(inputWrapper);
