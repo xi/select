@@ -33,7 +33,7 @@ export class TagInput {
 		this.wrapper.append(this.values);
 
 		this.input = document.createElement('input');
-		this.input.className = 'form-control';
+		this.input.className = this.original.dataset.tagsInputClass || '';
 		this.wrapper.append(this.input);
 
 		this.datalist = document.createElement('datalist');
@@ -97,7 +97,7 @@ export class TagInput {
 			if (op.selected) {
 				var li = document.createElement('li');
 				li.textContent = op.label;
-				li.className = 'badge bg-secondary me-1';
+				li.className = this.original.dataset.tagsValueClass || 'select__value';
 				li.onclick = () => {
 					op.selected = false;
 					li.remove();

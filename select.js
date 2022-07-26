@@ -54,6 +54,7 @@ export class Select {
 
 		this.wrapper.append(this.dropdown);
 
+		this.input.className = this.original.dataset.selectInputClass || '';
 		this.input.disabled = this.original.disabled;
 		// this.dropdown.setAttribute('aria-labelledby', 'TODO');
 
@@ -108,6 +109,7 @@ export class Select {
 				if (op.selected && op.label) {
 					var li = create('<li>');
 					li.textContent = op.label;
+					li.className = this.original.dataset.selectValueClass || 'select__value';
 					li.onclick = () => {
 						this.original.options[i].selected = false;
 						li.remove();

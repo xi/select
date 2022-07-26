@@ -67,10 +67,12 @@
 	display: inline-block;
 	margin: 0.1em 0.2em;
 	margin-inline-start: 0;
+	cursor: default;
+}
+.select__value {
 	padding: 0 0.2em;
 	background: rgba(128,128,128,.2);
 	color: inherit;
 	border: 1px solid ThreeDShadow;
 	border-radius: 0.3em;
-	cursor: default;
 }
