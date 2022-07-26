@@ -104,6 +104,7 @@ export class Select {
 	updateValue() {
 		if (this.original.multiple) {
 			this.input.value = '';
+			this.input.setCustomValidity('');
 			this.values.innerHTML = '';
 			Array.from(this.original.options).forEach((op, i) => {
 				if (op.selected && op.label) {
@@ -121,6 +122,7 @@ export class Select {
 		} else {
 			if (this.original.selectedOptions.length) {
 				this.input.value = this.original.selectedOptions[0].label;
+				this.input.setCustomValidity('');
 			}
 		}
 	}
