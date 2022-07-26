@@ -11,6 +11,7 @@
   "license": "MIT",
   "homepage": "https://github.com/xi/select",
   "files": [
+    "tags.js",
     "select.js",
     "select.css",
     "README.md",
