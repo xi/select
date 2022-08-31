@@ -112,5 +112,5 @@ export class TagInput {
 }
 
 Array.from(document.querySelectorAll('[data-tags]')).forEach(el => {
-	new TagInput(randomString(), el);
+	new TagInput(randomString(8), el);
 });
