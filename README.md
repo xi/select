@@ -26,7 +26,6 @@ use this on desktop.
 -	dynamic option creation
 -	localization
 -	allowClear
--	tokenSeparators
 
 ## Inspiration
 
