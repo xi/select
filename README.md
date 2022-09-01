@@ -25,6 +25,7 @@ use this on desktop.
 -	refactor constructor args
 -	localization
 -	allowClear
+-	tokenSeparators
 
 ## Inspiration
 

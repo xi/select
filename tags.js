@@ -18,7 +18,6 @@ export class TagInput {
 	constructor(id, original) {
 		this.id = id;
 		this.original = original;
-		this.separators = (original.dataset.tagsSeparators || 'Enter').split(/\s+/)
 
 		this.createElements();
 		original.hidden = true;
@@ -77,7 +76,7 @@ export class TagInput {
 					this.input.value = op.value;
 				}
 			}
-		} else if (this.separators.includes(event.key)) {
+		} else if (event.keyCode === KEYS.ENTER) {
 			if (this.input.value) {
 				this.onchange(event);
 			}
