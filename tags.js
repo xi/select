@@ -18,6 +18,7 @@ export class TagInput {
 	constructor(id, original) {
 		this.id = id;
 		this.original = original;
+		this.separator = new RegExp(original.dataset.tagsSeparator || '$')
 
 		this.createElements();
 		original.hidden = true;
@@ -86,7 +87,9 @@ export class TagInput {
 	onchange(event) {
 		if (this.input.value) {
 			event.preventDefault();
-			this.setValue(this.input.value);
+			this.input.value.split(this.separator).forEach(value => {
+				this.setValue(value.trim());
+			});
 		}
 	}
 
