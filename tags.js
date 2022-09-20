@@ -85,9 +85,9 @@ export class TagInput {
 	}
 
 	onchange(event) {
-		if (this.input.value) {
+		if (this.input.value.trim()) {
 			event.preventDefault();
-			this.setValue(this.input.value);
+			this.setValue(this.input.value.trim());
 		}
 	}
 
