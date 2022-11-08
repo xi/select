@@ -109,6 +109,7 @@ export class TagInput {
 				op.remove();
 			}
 		});
+		this.input.required = this.original.required && !this.original.value;
 	}
 }
 

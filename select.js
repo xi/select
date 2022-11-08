@@ -125,6 +125,8 @@ export class Select {
 				this.input.setCustomValidity('');
 			}
 		}
+
+		this.input.required = this.original.required && !this.original.value;
 	}
 
 	createOption(op, i) {
