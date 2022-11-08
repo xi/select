@@ -113,7 +113,7 @@ export class Select {
 					li.className = this.original.dataset.selectValueClass || 'select__value';
 					li.onclick = () => {
 						this.original.options[i].selected = false;
-						li.remove();
+						this.updateValue();
 						this.input.focus();
 					};
 					this.values.append(li);

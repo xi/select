@@ -101,7 +101,7 @@ export class TagInput {
 				li.className = this.original.dataset.tagsValueClass || 'select__value';
 				li.onclick = () => {
 					op.selected = false;
-					li.remove();
+					this.updateValue();
 					this.input.focus();
 				};
 				this.values.append(li);
