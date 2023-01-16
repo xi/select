@@ -218,8 +218,10 @@ export class Select {
 				event.preventDefault();
 				this.moveFocus(-10);
 			} else if (event.keyCode === KEYS.ENTER) {
-				event.preventDefault();
-				this.setValue(this.indexMap[this.focus]);
+				if (this.indexMap.length) {
+					event.preventDefault();
+					this.setValue(this.indexMap[this.focus]);
+				}
 			} else if (event.keyCode === KEYS.ESC) {
 				this.input.value = '';
 				this.close();
