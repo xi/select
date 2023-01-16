@@ -31,6 +31,7 @@ export class Select {
 		this.original = original;
 		this.focus = -1;
 		this.indexMap = [];
+		this.inputDirty = false;
 
 		this.createElements();
 		original.hidden = true;
@@ -69,6 +70,14 @@ export class Select {
 			}
 		};
 
+		this.original.oninvalid = () => {
+			this.updateValidity();
+			this.input.reportValidity();
+		};
+		this.original.onchange = () => {
+			this.updateValidity();
+		};
+
 		// Prevent blurring input. This also ensures dragging the cursor away from
 		// the list item will cancel the selection
 		this.dropdown.onmousedown = event => {
@@ -104,7 +113,8 @@ export class Select {
 	updateValue() {
 		if (this.original.multiple) {
 			this.input.value = '';
-			this.input.setCustomValidity('');
+			this.inputDirty = false;
+			this.updateValidity();
 			this.values.innerHTML = '';
 			Array.from(this.original.options).forEach((op, i) => {
 				if (op.selected && op.label) {
@@ -122,11 +132,18 @@ export class Select {
 		} else {
 			if (this.original.selectedOptions.length) {
 				this.input.value = this.original.selectedOptions[0].label;
-				this.input.setCustomValidity('');
+				this.inputDirty = false;
+				this.updateValidity();
 			}
 		}
+	}
 
-		this.input.required = this.original.required && !this.original.value;
+	updateValidity() {
+		if (this.inputDirty) {
+			this.input.setCustomValidity('invalid choice');
+		} else {
+			this.input.setCustomValidity(this.original.validationMessage);
+		}
 	}
 
 	createOption(op, i) {
@@ -250,11 +267,9 @@ export class Select {
 		} else {
 			this.close();
 		}
-		if (Array.from(this.original.options).some(op => this.isMatch(op.label))) {
-			this.input.setCustomValidity('');
-		} else {
-			this.input.setCustomValidity('invalid choice');
-		}
+		var ops = Array.from(this.original.options);
+		this.inputDirty = !ops.some(op => this.isMatch(op.label));
+		this.updateValidity();
 	}
 
 	onblur(event) {
@@ -265,9 +280,6 @@ export class Select {
 			this.close();
 		} else if (this.indexMap.length) {
 			this.setValue(this.indexMap[this.focus]);
-		}
-		if (!this.original.checkValidity()) {
-			this.input.setCustomValidity(this.original.validationMessage);
 		}
 	}
 }

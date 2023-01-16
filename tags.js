@@ -48,6 +48,14 @@ export class TagInput {
 		this.input.onkeydown = this.onkeydown.bind(this);
 		this.input.onchange = this.onchange.bind(this);
 
+		this.original.oninvalid = () => {
+			this.input.setCustomValidity(this.original.validationMessage);
+			this.input.reportValiditiy();
+		};
+		this.original.onchange = () => {
+			this.input.setCustomValidity(this.original.validationMessage);
+		};
+
 		this.updateValue();
 	}
 
@@ -109,7 +117,6 @@ export class TagInput {
 				op.remove();
 			}
 		});
-		this.input.required = this.original.required && !this.original.value;
 	}
 }
 
