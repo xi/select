@@ -22,8 +22,12 @@
 	border-top: 0;
 	left: 0;
 	right: 0;
-	max-height: 10em;
 	overflow-y: auto;
+
+	/* line-height and height are chosen so that the last line is only */
+	/* half visible (to indivate that there is more below) */
+	line-height: 1.2;
+	max-height: 10.4em;
 }
 .select__dropdown:empty {
 	display: none;
