@@ -257,6 +257,7 @@ export class Select {
 				op.selected = false;
 				this.updateValue();
 				this.input.value = op.label;
+				this.oninput();
 			}
 		}
 	}
