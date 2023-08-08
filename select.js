@@ -20,9 +20,9 @@ var randomString = function(length) {
 };
 
 var create = function(html) {
-	var div = document.createElement('div');
-	div.innerHTML = html;
-	return div.children[0];
+	var tmp = document.createElement('template');
+	tmp.innerHTML = html;
+	return tmp.content.children[0];
 };
 
 export class Select {
