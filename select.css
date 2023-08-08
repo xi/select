@@ -12,13 +12,14 @@
 	z-index: 1;
 	list-style: none;
 	margin: 0;
-	padding: 1px;
+	padding: 0;
 	background: Field;
 	color: FieldText;
 	font-family: sans-serif;
 	font-size: small;
 	font: -moz-field;
-	border: 1px solid ThreeDShadow;
+	border: 1px solid Field;
+	outline: 1px solid ThreeDShadow;
 	border-top: 0;
 	left: 0;
 	right: 0;
