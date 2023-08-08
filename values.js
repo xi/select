@@ -1,27 +1,19 @@
 import { create } from './utils.js';
 
-var createMeasure = function(target) {
-	var wrapper = create('<div class="select__measure" aria-hidden="true">');
-	var span = document.createElement('span');
-	target.after(wrapper);
-	wrapper.append(span);
-
-	return text => {
-		span.textContent = text;
-		var rect = span.getBoundingClientRect();
-		return rect.width;
-	};
-};
-
 export class Values {
 	constructor(input, valueClass) {
 		this.gap = 4;
 		this.input = input;
 		this.valueClass = valueClass || 'select__value';
 
-		this.measure = createMeasure(input);
 		this.el = create('<ul class="select__values" aria-live="polite">');
 		input.before(this.el);
+
+		var measureWrapper = create('<div class="select__measure" aria-hidden="true">');
+		input.after(measureWrapper);
+
+		this.measure = document.createElement('span');
+		measureWrapper.append(this.measure);
 
 		input.addEventListener('input', this.updateSize.bind(this));
 		window.addEventListener('resize', this.updateSize.bind(this));
@@ -48,7 +40,10 @@ export class Values {
 				? last.right - first.left
 				: first.right - last.left;
 
-			if (width + this.gap + this.measure(this.input.value) < this.el.clientWidth) {
+			this.measure.textContent = this.input.value;
+			var text = this.measure.getBoundingClientRect();
+
+			if (width + this.gap + text.width < this.el.clientWidth) {
 				this.input.style.paddingTop = `${paddingTop + height}px`;
 				this.input.style.textIndent = `${width + this.gap}px`;
 			} else {
