@@ -9,6 +9,8 @@ export class TagInput {
 		this.createElements();
 		original.hidden = true;
 		original.before(this.wrapper);
+
+		this.updateValue();
 	}
 
 	createElements() {
@@ -39,8 +41,6 @@ export class TagInput {
 		this.original.onchange = () => {
 			this.input.setCustomValidity(this.original.validationMessage);
 		};
-
-		this.updateValue();
 	}
 
 	updateValue() {

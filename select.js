@@ -11,6 +11,8 @@ export class Select {
 		this.createElements();
 		original.hidden = true;
 		original.before(this.wrapper);
+
+		this.updateValue();
 	}
 
 	createElements() {
@@ -58,8 +60,6 @@ export class Select {
 		this.dropdown.onmousedown = event => {
 			event.preventDefault();
 		};
-
-		this.updateValue();
 	}
 
 	isMatch(s) {
