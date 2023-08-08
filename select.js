@@ -1,4 +1,5 @@
 import { KEYS, randomString, create } from './utils.js';
+import { Values } from './values.js';
 
 export class Select {
 	constructor(id, original) {
@@ -22,9 +23,8 @@ export class Select {
 
 		if (this.original.multiple) {
 			var inputWrapper = create('<div class="select__input">');
-			this.values = create('<ul class="select__values" aria-live="polite">')
-			inputWrapper.append(this.values);
 			inputWrapper.append(this.input);
+			this.values = new Values(this.input, this.original.dataset.selectValueClass);
 			this.wrapper.append(inputWrapper);
 		} else {
 			this.wrapper.append(this.input);
@@ -90,19 +90,9 @@ export class Select {
 			this.input.value = '';
 			this.inputDirty = false;
 			this.updateValidity();
-			this.values.innerHTML = '';
-			Array.from(this.original.options).forEach(op => {
-				if (op.selected && op.label) {
-					var li = document.createElement('li');
-					li.textContent = op.label;
-					li.className = this.original.dataset.selectValueClass || 'select__value';
-					li.onclick = () => {
-						op.selected = false;
-						this.updateValue();
-						this.input.focus();
-					};
-					this.values.append(li);
-				}
+			this.values.update(this.original, () => {
+				this.updateValue();
+				this.input.focus();
 			});
 		} else {
 			if (this.original.selectedOptions.length) {
