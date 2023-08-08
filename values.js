@@ -41,6 +41,7 @@ export class Values {
 				: first.right - last.left;
 
 			this.measure.textContent = this.input.value;
+			this.measure.style.font = style.font;
 			var text = this.measure.getBoundingClientRect();
 
 			if (width + this.gap + text.width < this.el.clientWidth) {
