@@ -1,4 +1,4 @@
-import { KEYS, randomString } from './utils.js';
+import { KEYS, randomString, create } from './utils.js';
 
 export class TagInput {
 	constructor(id, original) {
@@ -14,9 +14,7 @@ export class TagInput {
 	createElements() {
 		this.wrapper = document.createElement('div');
 
-		this.values = document.createElement('ul');
-		this.values.className = 'select__values';
-		this.values.setAttribute('aria-live', 'polite');
+		this.values = create('<ul class="select__values" aria-live="polite">');
 		this.wrapper.append(this.values);
 
 		this.input = document.createElement('input');
@@ -45,6 +43,26 @@ export class TagInput {
 		this.updateValue();
 	}
 
+	updateValue() {
+		this.input.value = '';
+		this.values.innerHTML = '';
+		Array.from(this.original.options).forEach(op => {
+			if (op.selected && op.label) {
+				var li = document.createElement('li');
+				li.textContent = op.label;
+				li.className = this.original.dataset.tagsValueClass || 'select__value';
+				li.onclick = () => {
+					op.selected = false;
+					this.updateValue();
+					this.input.focus();
+				};
+				this.values.append(li);
+			} else if (!op.selected && op.hasAttribute('data-tag-custom')) {
+				op.remove();
+			}
+		});
+	}
+
 	setValue(value) {
 		var option = Array.from(this.original.options).find(op => op.value === value);
 		if (!option) {
@@ -69,6 +87,7 @@ export class TagInput {
 					op.selected = false;
 					this.updateValue();
 					this.input.value = op.value;
+					this.input.dispatchEvent(new Event('input'));
 				}
 			}
 		} else if (this.separators.includes(event.key)) {
@@ -83,26 +102,6 @@ export class TagInput {
 			event.preventDefault();
 			this.setValue(this.input.value.trim());
 		}
-	}
-
-	updateValue() {
-		this.input.value = '';
-		this.values.innerHTML = '';
-		Array.from(this.original.options).forEach((op, i) => {
-			if (op.selected) {
-				var li = document.createElement('li');
-				li.textContent = op.label;
-				li.className = this.original.dataset.tagsValueClass || 'select__value';
-				li.onclick = () => {
-					op.selected = false;
-					this.updateValue();
-					this.input.focus();
-				};
-				this.values.append(li);
-			} else if (op.hasAttribute('data-tag-custom')) {
-				op.remove();
-			}
-		});
 	}
 }
 

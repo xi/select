@@ -91,13 +91,13 @@ export class Select {
 			this.inputDirty = false;
 			this.updateValidity();
 			this.values.innerHTML = '';
-			Array.from(this.original.options).forEach((op, i) => {
+			Array.from(this.original.options).forEach(op => {
 				if (op.selected && op.label) {
-					var li = create('<li>');
+					var li = document.createElement('li');
 					li.textContent = op.label;
 					li.className = this.original.dataset.selectValueClass || 'select__value';
 					li.onclick = () => {
-						this.original.options[i].selected = false;
+						op.selected = false;
 						this.updateValue();
 						this.input.focus();
 					};
@@ -232,7 +232,7 @@ export class Select {
 				op.selected = false;
 				this.updateValue();
 				this.input.value = op.label;
-				this.oninput();
+				this.input.dispatchEvent(new Event('input'));
 			}
 		}
 	}
