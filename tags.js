@@ -1,18 +1,4 @@
-var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-
-var KEYS = {
-	BACKSPACE: 8,
-	ENTER: 13,
-};
-
-var randomString = function(length) {
-	var result = [];
-	for (var i = 0; i < length; i++) {
-		var k = Math.floor(Math.random() * chars.length);
-		result.push(chars[k]);
-	}
-	return result.join('');
-};
+import { KEYS, randomString } from './utils.js';
 
 export class TagInput {
 	constructor(id, original) {
