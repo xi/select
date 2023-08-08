@@ -9,7 +9,7 @@
 
 .select__dropdown {
 	position: absolute;
-	z-index: 1;
+	z-index: 2;
 	list-style: none;
 	margin: 0;
 	padding: 0;
@@ -64,13 +64,23 @@
 	padding-left: 2em;
 }
 
+.select__input {
+	position: relative;
+}
+.select__input input {
+	position: relative;  /* on top of values */
+}
+
 .select__values {
+	position: absolute;
 	display: inline;
 	padding: 0;
 	margin: 0;
 }
 .select__values li {
 	display: inline-block;
+	position: relative;
+	z-index: 1;  /* on top of input */
 	margin: 0.1em 0.2em;
 	margin-inline-start: 0;
 	cursor: default;
@@ -81,4 +91,11 @@
 	color: inherit;
 	border: 1px solid ThreeDShadow;
 	border-radius: 0.3em;
+}
+
+.select__measure {
+	width: 0;
+	height: 0;
+	overflow: hidden;
+	white-space: pre;
 }

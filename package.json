@@ -13,6 +13,7 @@
   "files": [
     "tags.js",
     "select.js",
+    "values.js",
     "utils.js",
     "select.css",
     "README.md",

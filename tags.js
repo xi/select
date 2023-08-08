@@ -1,4 +1,5 @@
 import { KEYS, randomString, create } from './utils.js';
+import { Values } from './values.js';
 
 export class TagInput {
 	constructor(id, original) {
@@ -9,17 +10,18 @@ export class TagInput {
 		this.createElements();
 		original.hidden = true;
 		original.before(this.wrapper);
+
+		this.updateValue();
 	}
 
 	createElements() {
-		this.wrapper = document.createElement('div');
-
-		this.values = create('<ul class="select__values" aria-live="polite">');
-		this.wrapper.append(this.values);
+		this.wrapper = create('<div class="select__input">');
 
 		this.input = document.createElement('input');
 		this.input.className = this.original.dataset.tagsInputClass || '';
 		this.wrapper.append(this.input);
+
+		this.values = new Values(this.input, this.original.dataset.tagsValueClass);
 
 		this.datalist = document.createElement('datalist');
 		this.datalist.innerHTML = this.original.innerHTML;
@@ -39,27 +41,13 @@ export class TagInput {
 		this.original.onchange = () => {
 			this.input.setCustomValidity(this.original.validationMessage);
 		};
-
-		this.updateValue();
 	}
 
 	updateValue() {
 		this.input.value = '';
-		this.values.innerHTML = '';
-		Array.from(this.original.options).forEach(op => {
-			if (op.selected && op.label) {
-				var li = document.createElement('li');
-				li.textContent = op.label;
-				li.className = this.original.dataset.tagsValueClass || 'select__value';
-				li.onclick = () => {
-					op.selected = false;
-					this.updateValue();
-					this.input.focus();
-				};
-				this.values.append(li);
-			} else if (!op.selected && op.hasAttribute('data-tag-custom')) {
-				op.remove();
-			}
+		this.values.update(this.original, () => {
+			this.updateValue();
+			this.input.focus();
 		});
 	}
 
