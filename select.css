@@ -73,7 +73,6 @@
 
 .select__values {
 	position: absolute;
-	display: inline;
 	padding: 0;
 	margin: 0;
 }
@@ -82,8 +81,7 @@
 	position: relative;
 	z-index: 1;  /* on top of input */
 	margin-block: 0.1em;
-	margin-inline: 0.2em;
-	margin-inline-start: 0;
+	margin-inline-end: 0.2em;
 	cursor: default;
 }
 .select__value {
