@@ -23,7 +23,6 @@ use this on desktop.
 ## Roadmap
 
 -	refactor constructor args
--	localization
 -	allowClear
 
 ## Inspiration
