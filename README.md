@@ -22,7 +22,6 @@ use this on desktop.
 
 ## Roadmap
 
--	refactor constructor args
 -	allowClear
 
 ## Inspiration

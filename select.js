@@ -2,9 +2,13 @@ import { KEYS, randomString, create } from './utils.js';
 import { Values } from './values.js';
 
 export class Select {
-	constructor(id, original) {
-		this.id = id;
+	constructor(original, options = {}) {
 		this.original = original;
+
+		this.id = options.id || randomString(8);
+		this.inputClass = options.inputClass || original.dataset.selectInputClass;
+		this.valueClass = options.valueClass || original.dataset.selectValueClass;
+
 		this.focus = -1;
 		this.indexMap = [];
 		this.inputDirty = false;
@@ -24,7 +28,7 @@ export class Select {
 		if (this.original.multiple) {
 			var inputWrapper = create('<div class="select__input">');
 			inputWrapper.append(this.input);
-			this.values = new Values(this.input, this.original.dataset.selectValueClass);
+			this.values = new Values(this.input, this.valueClass);
 			this.wrapper.append(inputWrapper);
 		} else {
 			this.wrapper.append(this.input);
@@ -32,7 +36,7 @@ export class Select {
 
 		this.wrapper.append(this.dropdown);
 
-		this.input.className = this.original.dataset.selectInputClass || '';
+		this.input.className = this.inputClass || '';
 		this.input.disabled = this.original.disabled;
 
 		var labels = Array.from(this.original.labels).map(label => {
@@ -257,5 +261,5 @@ export class Select {
 }
 
 Array.from(document.querySelectorAll('[data-select]')).forEach(el => {
-	new Select(randomString(8), el);
+	new Select(el);
 });

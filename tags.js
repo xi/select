@@ -2,10 +2,13 @@ import { KEYS, randomString, create } from './utils.js';
 import { Values } from './values.js';
 
 export class TagInput {
-	constructor(id, original) {
-		this.id = id;
+	constructor(original, options = {}) {
 		this.original = original;
-		this.separators = (original.dataset.tagsSeparators || 'Enter').split(/\s+/)
+
+		this.id = options.id || randomString(8);
+		this.inputClass = options.inputClass || original.dataset.tagsInputClass;
+		this.valueClass = options.valueClass || original.dataset.tagsValueClass;
+		this.separators = options.separators || (original.dataset.tagsSeparators || 'Enter').split(/\s+/);
 
 		this.createElements();
 		original.hidden = true;
@@ -18,7 +21,7 @@ export class TagInput {
 		this.wrapper = create('<div class="select__input">');
 
 		this.input = document.createElement('input');
-		this.input.className = this.original.dataset.tagsInputClass || '';
+		this.input.className = this.inputClass || '';
 		var labels = Array.from(this.original.labels).map(label => {
 			label.id = label.id || randomString(8);
 			return label.id;
@@ -26,7 +29,7 @@ export class TagInput {
 		this.input.setAttribute('aria-labelledby', labels);
 		this.wrapper.append(this.input);
 
-		this.values = new Values(this.input, this.original.dataset.tagsValueClass);
+		this.values = new Values(this.input, this.valueClass);
 
 		this.datalist = document.createElement('datalist');
 		this.datalist.innerHTML = this.original.innerHTML;
@@ -99,5 +102,5 @@ export class TagInput {
 }
 
 Array.from(document.querySelectorAll('[data-tags]')).forEach(el => {
-	new TagInput(randomString(8), el);
+	new TagInput(el);
 });
