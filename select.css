@@ -3,7 +3,7 @@
 }
 
 .select > input {
-	width: 100%;
+	inline-size: 100%;
 	box-sizing: border-box;
 }
 
@@ -20,15 +20,14 @@
 	font: -moz-field;
 	border: 1px solid Field;
 	outline: 1px solid ThreeDShadow;
-	border-top: 0;
-	left: 0;
-	right: 0;
+	border-block-start: 0;
+	inset-inline: 0;
 	overflow-y: auto;
 
-	/* line-height and height are chosen so that the last line is only */
+	/* line-height and block-size are chosen so that the last line is only */
 	/* half visible (to indivate that there is more below) */
 	line-height: 1.2;
-	max-height: 10.4em;
+	max-block-size: 10.4em;
 }
 .select__dropdown:empty {
 	display: none;
@@ -37,7 +36,8 @@
 .select__dropdown [role="option"],
 .select__dropdown strong {
 	display: block;
-	padding: 0.2em 0.4em;
+	padding-block: 0.2em;
+	padding-inline: 0.4em;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -61,7 +61,7 @@
 	padding: 0;
 }
 .select__dropdown ul [role="option"] {
-	padding-left: 2em;
+	padding-inline-start: 2em;
 }
 
 .select__input {
@@ -81,12 +81,13 @@
 	display: inline-block;
 	position: relative;
 	z-index: 1;  /* on top of input */
-	margin: 0.1em 0.2em;
+	margin-block: 0.1em;
+	margin-inline: 0.2em;
 	margin-inline-start: 0;
 	cursor: default;
 }
 .select__value {
-	padding: 0 0.2em;
+	padding-inline: 0.2em;
 	background: rgba(128,128,128,.3);
 	color: FieldText;
 	border: 1px solid ThreeDShadow;
@@ -94,8 +95,8 @@
 }
 
 .select__measure {
-	width: 0;
-	height: 0;
+	inline-size: 0;
+	block-size: 0;
 	overflow: hidden;
 	white-space: pre;
 }
