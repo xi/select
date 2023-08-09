@@ -45,7 +45,7 @@
 }
 .select__dropdown [role="option"].select--selected,
 .select__dropdown [role="option"]:hover {
-	background: rgba(128,128,128,.2);
+	background: rgba(128,128,128,.3);
 	color: inherit;
 }
 .select__dropdown [role="option"].select--has-focus {
@@ -87,8 +87,8 @@
 }
 .select__value {
 	padding: 0 0.2em;
-	background: rgba(128,128,128,.2);
-	color: inherit;
+	background: rgba(128,128,128,.3);
+	color: FieldText;
 	border: 1px solid ThreeDShadow;
 	border-radius: 0.3em;
 }
@@ -98,4 +98,10 @@
 	height: 0;
 	overflow: hidden;
 	white-space: pre;
+}
+
+@media (prefers-color-scheme: dark) {
+	.select__dropdown {
+		color-scheme: dark;
+	}
 }
