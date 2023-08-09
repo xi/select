@@ -24,7 +24,7 @@ export class Values {
 
 		// We may already have changed paddingTop, so we assume that original
 		// paddingTop and paddingBottom are the same
-		var paddingTop = parseInt(style.paddingBottom, 10);
+		var paddingTop = parseFloat(style.paddingBottom);
 
 		this.el.style.top = paddingTop + 'px';
 		this.el.style.bottom = style.paddingBottom;
