@@ -44,6 +44,10 @@ export class Values {
 			this.measure.style.font = style.font;
 			var text = this.measure.getBoundingClientRect();
 
+			if (first.height > text.height) {
+				this.input.style.lineHeight = `${first.height}px`;
+			}
+
 			if (width + this.gap + text.width < this.el.clientWidth) {
 				this.input.style.paddingTop = `${paddingTop + height}px`;
 				this.input.style.textIndent = `${width + this.gap}px`;
@@ -54,6 +58,7 @@ export class Values {
 		} else {
 			this.input.style.paddingTop = `${paddingTop}px`;
 			this.input.style.textIndent = '0';
+			this.input.style.lineHeight = null;
 		}
 	}
 
