@@ -20,6 +20,7 @@ export class Values {
 	}
 
 	updateSize() {
+		this.input.style.lineHeight = null;
 		var style = getComputedStyle(this.input);
 
 		// We may already have changed paddingTop, so we assume that original
@@ -44,7 +45,11 @@ export class Values {
 			this.measure.style.font = style.font;
 			var text = this.measure.getBoundingClientRect();
 
-			if (first.height > text.height) {
+			var lineHeight = style.lineHeight === 'normal'
+				? text.height
+				: parseFloat(style.lineHeight);
+
+			if (first.height > lineHeight) {
 				this.input.style.lineHeight = `${first.height}px`;
 			}
 
@@ -58,7 +63,6 @@ export class Values {
 		} else {
 			this.input.style.paddingTop = `${paddingTop}px`;
 			this.input.style.textIndent = '0';
-			this.input.style.lineHeight = null;
 		}
 	}
 
