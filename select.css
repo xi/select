@@ -19,7 +19,7 @@
 	font-size: small;
 	font: -moz-field;
 	border: 1px solid Field;
-	outline: 1px solid ThreeDShadow;
+	outline: 1px solid ButtonBorder;
 	border-block-start: 0;
 	inset-inline: 0;
 	overflow-y: auto;
@@ -90,7 +90,7 @@
 	padding-inline: 0.2em;
 	background: rgba(128,128,128,.3);
 	color: FieldText;
-	border: 1px solid ThreeDShadow;
+	border: 1px solid ButtonBorder;
 	border-radius: 0.3em;
 }
 
