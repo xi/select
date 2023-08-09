@@ -29,6 +29,5 @@ use this on desktop.
 
 -	[select2](https://select2.org/)
 -	[downshift](https://www.downshift-js.com/)
--	[WAI-ARIA combobox](https://www.w3.org/TR/wai-aria-practices/#combobox)
-	([examples](https://www.w3.org/TR/wai-aria-practices/examples/combobox/aria1.1pattern/listbox-combo.html))
+-	[WAI-ARIA combobox](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/)
 -	[`<datalist>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/datalist)
