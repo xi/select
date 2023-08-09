@@ -73,8 +73,10 @@
 
 .select__values {
 	position: absolute;
+	inset: 0;
 	padding: 0;
 	margin: 0;
+	border: 1px solid transparent;
 }
 .select__values li {
 	display: inline-block;
