@@ -34,7 +34,13 @@ export class Select {
 
 		this.input.className = this.original.dataset.selectInputClass || '';
 		this.input.disabled = this.original.disabled;
-		// this.dropdown.setAttribute('aria-labelledby', 'TODO');
+
+		var labels = Array.from(this.original.labels).map(label => {
+			label.id = label.id || randomString(8);
+			return label.id;
+		}).join(' ');
+		this.input.setAttribute('aria-labelledby', labels);
+		this.dropdown.setAttribute('aria-labelledby', labels);
 
 		this.input.onkeydown = this.onkeydown.bind(this);
 		this.input.oninput = this.oninput.bind(this);

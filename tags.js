@@ -19,6 +19,11 @@ export class TagInput {
 
 		this.input = document.createElement('input');
 		this.input.className = this.original.dataset.tagsInputClass || '';
+		var labels = Array.from(this.original.labels).map(label => {
+			label.id = label.id || randomString(8);
+			return label.id;
+		}).join(' ');
+		this.input.setAttribute('aria-labelledby', labels);
 		this.wrapper.append(this.input);
 
 		this.values = new Values(this.input, this.original.dataset.tagsValueClass);
