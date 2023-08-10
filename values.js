@@ -27,8 +27,8 @@ export class Values {
 		// paddingTop and paddingBottom are the same
 		var paddingTop = parseFloat(style.paddingBottom);
 
-		this.el.style.padding = style.padding;
-		this.el.style.paddingTop = `${paddingTop}px`;
+		this.el.style.inset = style.padding;
+		this.el.style.top = `${paddingTop}px`;
 		this.el.style.borderWidth = style.borderWidth;
 
 		var n = this.el.children.length;
