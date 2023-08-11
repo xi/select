@@ -20,15 +20,11 @@ export class Values {
 	}
 
 	updateSize() {
+		this.input.style.paddingTop = null;
 		this.input.style.lineHeight = null;
 		var style = getComputedStyle(this.input);
 
-		// We may already have changed paddingTop, so we assume that original
-		// paddingTop and paddingBottom are the same
-		var paddingTop = parseFloat(style.paddingBottom);
-
 		this.el.style.inset = style.padding;
-		this.el.style.top = `${paddingTop}px`;
 		this.el.style.borderWidth = style.borderWidth;
 
 		var n = this.el.children.length;
@@ -44,6 +40,7 @@ export class Values {
 			this.measure.style.font = style.font;
 			var text = this.measure.getBoundingClientRect();
 
+			var paddingTop = parseFloat(style.paddingTop);
 			var lineHeight = style.lineHeight === 'normal'
 				? text.height
 				: parseFloat(style.lineHeight);
@@ -60,7 +57,6 @@ export class Values {
 				this.input.style.textIndent = '0';
 			}
 		} else {
-			this.input.style.paddingTop = `${paddingTop}px`;
 			this.input.style.textIndent = '0';
 		}
 	}
