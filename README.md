@@ -10,7 +10,11 @@ The code is intentionally very simple and close to browser defaults.
 <link rel="stylesheet" href="select.css">
 <script src="select.js" type="module"></script>
 <script>
-	new Select('myselect', element);
+	new Select(element, {
+		id: 'myselect',
+		inputClass: 'my-input-class',
+		valueClass: 'my-value-class',
+	});
 </script>
 ```
 
