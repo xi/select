@@ -21,8 +21,8 @@ export class Select {
 	}
 
 	createElements() {
-		this.wrapper = create('<div class="select" role="combobox" aria-expanded="false" aria-has-popup="listbox">');
-		this.input = create('<input aria-autocomplete="list" autocomplete="off">');
+		this.wrapper = create('<div class="select">');
+		this.input = create('<input role="combobox" aria-expanded="false" aria-has-popup="listbox" aria-autocomplete="list" autocomplete="off">');
 		this.dropdown = create('<ul class="select__dropdown" role="listbox" tabindex="-1">');
 
 		if (this.original.multiple) {
