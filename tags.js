@@ -33,7 +33,7 @@ export class TagInput {
 
 		this.datalist = document.createElement('datalist');
 		this.datalist.innerHTML = this.original.innerHTML;
-		this.datalist.id = this.id + '-list';
+		this.datalist.id = `${this.id}-list`;
 		this.input.setAttribute('list', this.datalist.id);
 		this.wrapper.append(this.datalist);
 

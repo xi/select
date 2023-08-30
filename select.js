@@ -87,7 +87,7 @@ export class Select {
 				li.setAttribute('aria-selected', op.selected);
 			});
 			this.wrapper.setAttribute('aria-expanded', 'true');
-			this.input.setAttribute('aria-activedescendant', this.id + '_option_' + this.indexMap[this.focus]);
+			this.input.setAttribute('aria-activedescendant', `${this.id}_option_${this.indexMap[this.focus]}`);
 			options[this.focus].scrollIntoView({block: 'nearest'});
 		} else {
 			this.wrapper.setAttribute('aria-expanded', 'false');
@@ -123,7 +123,7 @@ export class Select {
 
 	createOption(op, i) {
 		var li = create('<li role="option">');
-		li.id = this.id + '_option_' + i;
+		li.id = `${this.id}_option_${i}`;
 		li.textContent = op.label;
 		if (op.disabled) {
 			li.setAttribute('aria-disabled', 'true');
