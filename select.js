@@ -28,7 +28,7 @@ export class Select {
 		if (this.original.multiple) {
 			var inputWrapper = create('<div class="select__input">');
 			inputWrapper.append(this.input);
-			this.values = new Values(this.input, this.valueClass);
+			this.values = new Values(this.input, `${this.id}-values`, this.valueClass);
 			this.wrapper.append(inputWrapper);
 		} else {
 			this.wrapper.append(this.input);

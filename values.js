@@ -1,12 +1,14 @@
 import { create } from './utils.js';
 
 export class Values {
-	constructor(input, valueClass) {
+	constructor(input, id, valueClass) {
 		this.gap = 4;
 		this.input = input;
 		this.valueClass = valueClass || 'select__value';
 
-		this.el = create('<ul class="select__values" aria-live="polite">');
+		this.el = create('<ul class="select__values">');
+		this.el.id = id;
+		input.setAttribute('aria-describedby', this.el.id);
 		input.before(this.el);
 
 		var measureWrapper = create('<div class="select__measure" aria-hidden="true">');

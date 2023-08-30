@@ -29,7 +29,7 @@ export class TagInput {
 		this.input.setAttribute('aria-labelledby', labels);
 		this.wrapper.append(this.input);
 
-		this.values = new Values(this.input, this.valueClass);
+		this.values = new Values(this.input, `${this.id}-values`, this.valueClass);
 
 		this.datalist = document.createElement('datalist');
 		this.datalist.innerHTML = this.original.innerHTML;
