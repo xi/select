@@ -32,5 +32,6 @@ use this on desktop.
 
 -	[select2](https://select2.org/)
 -	[downshift](https://www.downshift-js.com/)
+-	[react-select](https://react-select.com)
 -	[WAI-ARIA combobox](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/)
 -	[`<datalist>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/datalist)
