@@ -17,7 +17,7 @@ export class Select {
 		original.hidden = true;
 		original.before(this.wrapper);
 
-		this.updateValue();
+		this.updateInput();
 	}
 
 	createElements() {
@@ -77,7 +77,7 @@ export class Select {
 		return s.toLowerCase().indexOf(q) !== -1;
 	}
 
-	update() {
+	updateDropdown() {
 		var options = this.dropdown.querySelectorAll('[role="option"]');
 		if (this.focus !== -1 && options.length) {
 			Array.from(options).forEach((li, i) => {
@@ -95,13 +95,13 @@ export class Select {
 		}
 	}
 
-	updateValue() {
+	updateInput() {
 		if (this.original.multiple) {
 			this.input.value = '';
 			this.inputDirty = false;
 			this.updateValidity();
 			this.values.update(this.original, () => {
-				this.updateValue();
+				this.updateInput();
 				this.input.focus();
 			});
 		} else {
@@ -166,21 +166,21 @@ export class Select {
 				}
 			}
 		});
-		this.update();
+		this.updateDropdown();
 	}
 
 	close() {
 		this.focus = -1;
 		this.dropdown.innerHTML = '';
 		this.indexMap = [];
-		this.update();
+		this.updateDropdown();
 	}
 
 	moveFocus(k) {
 		this.focus += k;
 		this.focus = Math.max(this.focus, 0);
 		this.focus = Math.min(this.focus, this.indexMap.length - 1);
-		this.update();
+		this.updateDropdown();
 	}
 
 	setValue(i, toggle) {
@@ -191,8 +191,8 @@ export class Select {
 		}
 		this.original.dispatchEvent(new Event('change'));
 		this.close();
-		this.update();
-		this.updateValue();
+		this.updateDropdown();
+		this.updateInput();
 	}
 
 	onkeydown(event) {
@@ -230,7 +230,7 @@ export class Select {
 			if (n) {
 				var op = this.original.selectedOptions[n - 1];
 				op.selected = false;
-				this.updateValue();
+				this.updateInput();
 				this.input.value = op.label;
 				this.input.dispatchEvent(new Event('input'));
 			}
