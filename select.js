@@ -87,7 +87,7 @@ export class Select {
 				li.setAttribute('aria-selected', op.selected);
 			});
 			this.wrapper.setAttribute('aria-expanded', 'true');
-			this.input.setAttribute('aria-activedescendant', `${this.id}_option_${this.indexMap[this.focus]}`);
+			this.input.setAttribute('aria-activedescendant', options[this.focus].id);
 			options[this.focus].scrollIntoView({block: 'nearest'});
 		} else {
 			this.wrapper.setAttribute('aria-expanded', 'false');
