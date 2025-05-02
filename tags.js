@@ -18,7 +18,10 @@ export class TagInput {
 	}
 
 	createElements() {
-		this.wrapper = create('<div class="select__input">');
+		this.wrapper = create('<div class="select">');
+
+		this.inputWrapper = create('<div class="select__input">');
+		this.wrapper.append(this.inputWrapper);
 
 		this.input = document.createElement('input');
 		this.input.className = this.inputClass || '';
@@ -27,7 +30,7 @@ export class TagInput {
 			return label.id;
 		}).join(' ');
 		this.input.setAttribute('aria-labelledby', labels);
-		this.wrapper.append(this.input);
+		this.inputWrapper.append(this.input);
 
 		this.values = new Values(this.input, `${this.id}-values`, this.valueClass);
 
@@ -35,7 +38,7 @@ export class TagInput {
 		this.datalist.innerHTML = this.original.innerHTML;
 		this.datalist.id = `${this.id}-list`;
 		this.input.setAttribute('list', this.datalist.id);
-		this.wrapper.append(this.datalist);
+		this.inputWrapper.append(this.datalist);
 
 		this.input.disabled = this.original.disabled;
 
