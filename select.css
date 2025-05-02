@@ -1,4 +1,14 @@
 .select {
+	--bg: Field;
+	--text: FieldText;
+	--focus-bg: Highlight;
+	--focus-text: HighlightText;
+	--hover-bg: rgba(128,128,128,.3);
+	--border: ThreeDShadow;
+	--selected-bg: Highlight;
+	--selected-text: HighlightText;
+	--disabled-text: GrayText;
+
 	position: relative;
 }
 
@@ -13,13 +23,13 @@
 	list-style: none;
 	margin: 0;
 	padding: 0;
-	background: Field;
-	color: FieldText;
+	background: var(--bg);
+	color: var(--text);
 	font-family: sans-serif;
 	font-size: small;
 	font: -moz-field;
-	border: 1px solid Field;
-	outline: 1px solid ThreeDShadow;
+	border: 1px solid var(--bg);
+	outline: 1px solid var(--border);
 	border-block-start: 0;
 	inset-inline: 0;
 	overflow-y: auto;
@@ -45,16 +55,16 @@
 }
 .select__dropdown [role="option"].select--selected,
 .select__dropdown [role="option"]:hover {
-	background: rgba(128,128,128,.3);
+	background: var(--hover-bg);
 	color: inherit;
 }
 .select__dropdown [role="option"].select--has-focus {
-	background: Highlight;
-	color: HighlightText;
+	background: var(--selected-bg);
+	color: var(--selected-text);
 }
 .select__dropdown [role="option"][aria-disabled="true"] {
 	background: transparent;
-	color: GrayText;
+	color: var(--disabled-text);
 }
 .select__dropdown ul {
 	margin: 0;
@@ -87,9 +97,9 @@
 }
 .select__value {
 	padding-inline: 0.2em;
-	background: rgba(128,128,128,.3);
-	color: FieldText;
-	border: 1px solid ThreeDShadow;
+	background: var(--hover-bg);
+	color: var(--text);
+	border: 1px solid var(--border);
 	border-radius: 0.3em;
 }
 
@@ -101,7 +111,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-	.select__dropdown {
+	.select {
 		color-scheme: dark;
 	}
 }
