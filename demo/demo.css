@@ -15,3 +15,9 @@ input {
 	width: 100%;
 	box-sizing: border-box;
 }
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		color-scheme: dark;
+	}
+}
