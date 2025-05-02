@@ -4,7 +4,7 @@
 	--focus-bg: Highlight;
 	--focus-text: HighlightText;
 	--hover-bg: rgba(118,118,118,.3);
-	--border: ThreeDShadow;
+	--border: rgba(118,118,118,.5);
 	--selected-bg: Highlight;
 	--selected-text: HighlightText;
 	--disabled-text: GrayText;
