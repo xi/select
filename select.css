@@ -27,6 +27,7 @@
 	color: var(--text);
 	font-family: sans-serif;
 	font-size: small;
+	font: -webkit-small-control;
 	font: -moz-field;
 	border: 1px solid var(--bg);
 	outline: 1px solid var(--border);
