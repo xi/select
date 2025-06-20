@@ -35,7 +35,7 @@
 	overflow-y: auto;
 
 	/* line-height and block-size are chosen so that the last line is only */
-	/* half visible (to indivate that there is more below) */
+	/* half visible (to indicate that there is more below) */
 	line-height: 1.2;
 	max-block-size: 10.4em;
 }
