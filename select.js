@@ -86,11 +86,11 @@ export class Select {
 				li.classList.toggle('select--selected', this.original.multiple && op.selected);
 				li.setAttribute('aria-selected', op.selected);
 			});
-			this.wrapper.setAttribute('aria-expanded', 'true');
+			this.input.setAttribute('aria-expanded', 'true');
 			this.input.setAttribute('aria-activedescendant', options[this.focus].id);
 			options[this.focus].scrollIntoView({block: 'nearest'});
 		} else {
-			this.wrapper.setAttribute('aria-expanded', 'false');
+			this.input.setAttribute('aria-expanded', 'false');
 			this.input.setAttribute('aria-activedescendant', '');
 		}
 	}
