@@ -159,6 +159,7 @@ export class Select {
 				var label = create('<strong>');
 				var ul = create('<ul role="none">');
 				label.textContent = child.label;
+				group.setAttribute('aria-label', child.label);
 				group.append(label);
 				group.append(ul);
 				Array.from(child.children).forEach(c => {
