@@ -34,6 +34,7 @@ export class TagInput {
 		this.inputWrapper.append(this.input);
 
 		this.values = new Values(this.input, `${this.id}-values`, this.valueClass, this.valueFocusClass);
+		this.input.setAttribute('aria-controls', this.values.el.id);
 
 		this.datalist = document.createElement('datalist');
 		this.datalist.innerHTML = this.original.innerHTML;

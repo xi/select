@@ -25,14 +25,17 @@ export class Select {
 		this.wrapper = create('<div class="select">');
 		this.input = create('<input role="combobox" aria-expanded="false" aria-has-popup="listbox" aria-autocomplete="list" autocomplete="off">');
 		this.dropdown = create('<ul class="select__dropdown" role="listbox" tabindex="-1">');
+		this.dropdown.id = `${this.id}-dropdown`;
 
 		if (this.original.multiple) {
 			var inputWrapper = create('<div class="select__input">');
 			inputWrapper.append(this.input);
 			this.values = new Values(this.input, `${this.id}-values`, this.valueClass, this.valueFocusClass);
 			this.wrapper.append(inputWrapper);
+			this.input.setAttribute('aria-controls', `${this.dropdown.id} ${this.values.el.id}`);
 		} else {
 			this.wrapper.append(this.input);
+			this.input.setAttribute('aria-controls', this.dropdown.id);
 		}
 
 		this.wrapper.append(this.dropdown);
