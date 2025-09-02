@@ -14,6 +14,7 @@ The code is intentionally very simple and close to browser defaults.
 		id: 'myselect',
 		inputClass: 'my-input-class',
 		valueClass: 'my-value-class',
+		valueFocusClass: 'my-value-class--focus',
 	});
 </script>
 ```
