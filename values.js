@@ -8,7 +8,7 @@ export class Values {
 		this.valueClass = valueClass || 'select__value';
 		this.valueFocusClass = valueFocusClass || 'select__value--focus';
 
-		this.el = create('<ul class="select__values">');
+		this.el = create('<ul class="select__values" role="group">');
 		this.el.id = id;
 		input.setAttribute('aria-describedby', this.el.id);
 		input.before(this.el);
@@ -92,6 +92,7 @@ export class Values {
 			if (op.selected && op.label) {
 				var li = document.createElement('li');
 				li.id = `${this.el.id}-${i}`;
+				li.role = 'button';
 				li.textContent = op.label;
 				li.className = this.valueClass;
 				li.onclick = () => {
