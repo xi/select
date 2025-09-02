@@ -237,7 +237,7 @@ export class Select {
 		}
 	}
 
-	oninput(event) {
+	oninput() {
 		if (this.input.value) {
 			this.open(false);
 		} else {
@@ -248,7 +248,7 @@ export class Select {
 		this.updateValidity();
 	}
 
-	onblur(event) {
+	onblur() {
 		if (!this.input.value) {
 			if (!this.original.multiple) {
 				this.original.value = '';
