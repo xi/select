@@ -1,10 +1,12 @@
 import { create } from './utils.js';
 
 export class Values {
-	constructor(input, id, valueClass) {
+	constructor(input, id, valueClass, valueFocusClass) {
 		this.gap = 4;
+		this.focus = 0;
 		this.input = input;
 		this.valueClass = valueClass || 'select__value';
+		this.valueFocusClass = valueFocusClass || 'select__value--focus';
 
 		this.el = create('<ul class="select__values">');
 		this.el.id = id;
@@ -19,6 +21,26 @@ export class Values {
 
 		input.addEventListener('input', this.updateSize.bind(this));
 		window.addEventListener('resize', this.updateSize.bind(this));
+	}
+
+	setFocus(k) {
+		var n = this.el.children.length;
+		k = Math.min(0, Math.max(-n, k));
+		if (k !== this.focus) {
+			if (this.focus !== 0) {
+				const el = this.el.children[n + this.focus];
+				el.classList.remove(this.valueFocusClass);
+				if (this.input.getAttribute('aria-activedescendant') === el.id) {
+					this.input.removeAttribute('aria-activedescendant');
+				}
+			}
+			this.focus = k;
+			if (this.focus !== 0) {
+				const el = this.el.children[n + this.focus];
+				el.classList.add(this.valueFocusClass);
+				this.input.setAttribute('aria-activedescendant', el.id);
+			}
+		}
 	}
 
 	updateSize() {
@@ -64,10 +86,12 @@ export class Values {
 	}
 
 	update(original, onChange) {
+		this.setFocus(0);
 		this.el.innerHTML = '';
-		Array.from(original.options).forEach(op => {
+		Array.from(original.options).forEach((op, i) => {
 			if (op.selected && op.label) {
 				var li = document.createElement('li');
+				li.id = `${this.el.id}-${i}`;
 				li.textContent = op.label;
 				li.className = this.valueClass;
 				li.onclick = () => {
@@ -80,5 +104,20 @@ export class Values {
 			}
 		});
 		this.updateSize();
+	}
+
+	onkeydown(event) {
+		if (this.focus && (event.key === 'Backspace' || event.key === 'Delete')) {
+			var n = this.el.children.length;
+			this.el.children[n + this.focus].onclick();
+		} else if (event.key === 'ArrowLeft') {
+			this.setFocus(this.focus - 1);
+		} else if (event.key === 'ArrowRight') {
+			this.setFocus(this.focus + 1);
+		} else {
+			this.setFocus(0);
+			return false;
+		}
+		return true;
 	}
 }

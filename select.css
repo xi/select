@@ -103,6 +103,10 @@
 	border: 1px solid var(--border);
 	border-radius: 0.3em;
 }
+.select__value--focus {
+	background: var(--focus-bg);
+	color: var(--focus-text);
+}
 
 .select__measure {
 	inline-size: 0;

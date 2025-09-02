@@ -8,6 +8,7 @@ export class TagInput {
 		this.id = options.id || randomString(8);
 		this.inputClass = options.inputClass || original.dataset.tagsInputClass;
 		this.valueClass = options.valueClass || original.dataset.tagsValueClass;
+		this.valueFocusClass = options.valueFocusClass || original.dataset.tagsValueFocusClass;
 		this.separators = options.separators || (original.dataset.tagsSeparators || 'Enter').split(/\s+/);
 
 		this.createElements();
@@ -32,7 +33,7 @@ export class TagInput {
 		this.input.setAttribute('aria-labelledby', labels);
 		this.inputWrapper.append(this.input);
 
-		this.values = new Values(this.input, `${this.id}-values`, this.valueClass);
+		this.values = new Values(this.input, `${this.id}-values`, this.valueClass, this.valueFocusClass);
 
 		this.datalist = document.createElement('datalist');
 		this.datalist.innerHTML = this.original.innerHTML;
@@ -77,8 +78,14 @@ export class TagInput {
 	}
 
 	onkeydown(event) {
-		if (event.key === 'Backspace') {
-			if (!this.input.value) {
+		if (this.input.value) {
+			if (this.separators.includes(event.key)) {
+				this.onchange(event);
+			}
+		} else {
+			if (this.values.onkeydown(event)) {
+				// nothing to do
+			} else if (event.key === 'Backspace') {
 				event.preventDefault();
 				var n = this.original.selectedOptions.length;
 				if (n) {
@@ -88,10 +95,6 @@ export class TagInput {
 					this.input.value = op.value;
 					this.input.dispatchEvent(new Event('input'));
 				}
-			}
-		} else if (this.separators.includes(event.key)) {
-			if (this.input.value) {
-				this.onchange(event);
 			}
 		}
 	}

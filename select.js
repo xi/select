@@ -8,6 +8,7 @@ export class Select {
 		this.id = options.id || randomString(8);
 		this.inputClass = options.inputClass || original.dataset.selectInputClass;
 		this.valueClass = options.valueClass || original.dataset.selectValueClass;
+		this.valueFocusClass = options.valueFocusClass || original.dataset.selectValueFocusClass;
 
 		this.focus = -1;
 		this.indexMap = [];
@@ -28,7 +29,7 @@ export class Select {
 		if (this.original.multiple) {
 			var inputWrapper = create('<div class="select__input">');
 			inputWrapper.append(this.input);
-			this.values = new Values(this.input, `${this.id}-values`, this.valueClass);
+			this.values = new Values(this.input, `${this.id}-values`, this.valueClass, this.valueFocusClass);
 			this.wrapper.append(inputWrapper);
 		} else {
 			this.wrapper.append(this.input);
@@ -91,7 +92,9 @@ export class Select {
 			options[this.focus].scrollIntoView({block: 'nearest'});
 		} else {
 			this.input.setAttribute('aria-expanded', 'false');
-			this.input.setAttribute('aria-activedescendant', '');
+			if (!this.original.multiple || !this.values.focus) {
+				this.input.removeAttribute('aria-activedescendant');
+			}
 		}
 	}
 
@@ -224,15 +227,19 @@ export class Select {
 				this.open(true);
 			}
 		}
-		if (this.original.multiple && !this.input.value && event.key === 'Backspace') {
-			event.preventDefault();
-			var n = this.original.selectedOptions.length;
-			if (n) {
-				var op = this.original.selectedOptions[n - 1];
-				op.selected = false;
-				this.updateInput();
-				this.input.value = op.label;
-				this.input.dispatchEvent(new Event('input'));
+		if (this.original.multiple && !this.input.value) {
+			if (this.values.onkeydown(event)) {
+				this.close();
+			} else if (event.key === 'Backspace') {
+				event.preventDefault();
+				var n = this.original.selectedOptions.length;
+				if (n) {
+					var op = this.original.selectedOptions[n - 1];
+					op.selected = false;
+					this.updateInput();
+					this.input.value = op.label;
+					this.input.dispatchEvent(new Event('input'));
+				}
 			}
 		}
 	}
