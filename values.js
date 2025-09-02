@@ -6,7 +6,7 @@ export class Values {
 		this.focus = 0;
 		this.input = input;
 		this.valueClass = valueClass || 'select__value';
-		this.valueFocusClass = valueFocusClass || 'select__value--focus';
+		this.valueFocusClass = valueFocusClass || `${this.valueClass} ${this.valueClass}--focus`;
 
 		this.el = create('<ul class="select__values" role="group">');
 		this.el.id = id;
@@ -29,7 +29,7 @@ export class Values {
 		if (k !== this.focus) {
 			if (this.focus !== 0) {
 				const el = this.el.children[n + this.focus];
-				el.classList.remove(this.valueFocusClass);
+				el.className = this.valueClass;
 				if (this.input.getAttribute('aria-activedescendant') === el.id) {
 					this.input.removeAttribute('aria-activedescendant');
 				}
@@ -37,7 +37,7 @@ export class Values {
 			this.focus = k;
 			if (this.focus !== 0) {
 				const el = this.el.children[n + this.focus];
-				el.classList.add(this.valueFocusClass);
+				el.className = this.valueFocusClass;
 				this.input.setAttribute('aria-activedescendant', el.id);
 			}
 		}
