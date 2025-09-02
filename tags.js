@@ -1,4 +1,4 @@
-import { KEYS, randomString, create } from './utils.js';
+import { randomString, create } from './utils.js';
 import { Values } from './values.js';
 
 export class TagInput {
@@ -77,7 +77,7 @@ export class TagInput {
 	}
 
 	onkeydown(event) {
-		if (event.keyCode === KEYS.BACKSPACE) {
+		if (event.key === 'Backspace') {
 			if (!this.input.value) {
 				event.preventDefault();
 				var n = this.original.selectedOptions.length;

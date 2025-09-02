@@ -1,4 +1,4 @@
-import { KEYS, randomString, create } from './utils.js';
+import { randomString, create } from './utils.js';
 import { Values } from './values.js';
 
 export class Select {
@@ -197,34 +197,34 @@ export class Select {
 
 	onkeydown(event) {
 		if (this.focus !== -1) {
-			if (event.keyCode === KEYS.DOWN) {
+			if (event.key === 'ArrowDown') {
 				event.preventDefault();
 				this.moveFocus(1);
-			} else if (event.keyCode === KEYS.PAGE_DOWN) {
+			} else if (event.key === 'PageDown') {
 				event.preventDefault();
 				this.moveFocus(10);
-			} else if (event.keyCode === KEYS.UP) {
+			} else if (event.key === 'ArrowUp') {
 				event.preventDefault();
 				this.moveFocus(-1);
-			} else if (event.keyCode === KEYS.PAGE_UP) {
+			} else if (event.key === 'PageUp') {
 				event.preventDefault();
 				this.moveFocus(-10);
-			} else if (event.keyCode === KEYS.ENTER) {
+			} else if (event.key === 'Enter') {
 				if (this.indexMap.length) {
 					event.preventDefault();
 					this.setValue(this.indexMap[this.focus]);
 				}
-			} else if (event.keyCode === KEYS.ESC) {
+			} else if (event.key === 'Escape') {
 				this.input.value = '';
 				this.close();
 			}
 		} else {
-			if (event.keyCode === KEYS.DOWN) {
+			if (event.key === 'ArrowDown') {
 				event.preventDefault();
 				this.open(true);
 			}
 		}
-		if (this.original.multiple && !this.input.value && event.keyCode === KEYS.BACKSPACE) {
+		if (this.original.multiple && !this.input.value && event.key === 'Backspace') {
 			event.preventDefault();
 			var n = this.original.selectedOptions.length;
 			if (n) {
