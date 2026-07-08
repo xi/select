@@ -198,7 +198,6 @@ export class Select {
 		}
 		this.original.dispatchEvent(new Event('change'));
 		this.close();
-		this.updateDropdown();
 		this.updateInput();
 	}
 
