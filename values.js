@@ -110,7 +110,9 @@ export class Values {
 	onkeydown(event) {
 		if (this.focus && (event.key === 'Backspace' || event.key === 'Delete')) {
 			var n = this.el.children.length;
+			var oldFocus = this.focus;
 			this.el.children[n + this.focus].onclick();
+			this.setFocus(Math.min(oldFocus + 1, -1));
 		} else if (event.key === 'ArrowLeft') {
 			this.setFocus(this.focus - 1);
 		} else if (event.key === 'ArrowRight') {
