@@ -1,12 +1,12 @@
 {
-  "name": "select",
+  "name": "@xim/select",
   "version": "0.0.0",
   "description": "Better select widgets in vanilla javascript",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/xi/select.git"
   },
-  "keywords": ["select2"],
+  "keywords": ["select", "combobox", "multiselect"],
   "author": "Tobias Bengfort <tobias.bengfort@posteo.de>",
   "license": "MIT",
   "homepage": "https://github.com/xi/select",
