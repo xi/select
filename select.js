@@ -154,7 +154,7 @@ export class Select {
 					this.dropdown.append(this.createOption(child, i));
 				}
 				i += 1;
-			} else {
+			} else if (child.tagName === 'OPTGROUP') {
 				var group = create('<li role="group">');
 				var label = create('<strong>');
 				var ul = create('<ul role="none">');
