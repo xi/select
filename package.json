@@ -1,6 +1,6 @@
 {
   "name": "@xim/select",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Better select widgets in vanilla javascript",
   "repository": {
     "type": "git",
@@ -17,6 +17,7 @@
     "utils.js",
     "select.css",
     "README.md",
+    "CHANGES.md",
     "LICENSE"
   ]
 }
