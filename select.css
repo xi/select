@@ -53,7 +53,6 @@
 	text-overflow: ellipsis;
 	cursor: default;
 }
-.select__dropdown [role="option"].select--selected,
 .select__dropdown [role="option"]:hover {
 	background: var(--hover-bg);
 	color: inherit;

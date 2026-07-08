@@ -87,8 +87,6 @@ export class Select {
 			Array.from(options).forEach((li, i) => {
 				var op = this.original.options[this.indexMap[i]];
 				li.classList.toggle('select--has-focus', i === this.focus);
-				li.classList.toggle('select--selected', this.original.multiple && op.selected);
-				li.setAttribute('aria-selected', op.selected);
 			});
 			this.input.setAttribute('aria-expanded', 'true');
 			this.input.setAttribute('aria-activedescendant', options[this.focus].id);
@@ -135,7 +133,7 @@ export class Select {
 			li.setAttribute('aria-disabled', 'true');
 		} else {
 			li.onclick = () => {
-				this.setValue(i, this.original.multiple);
+				this.setValue(i);
 				this.input.focus();
 			};
 		}
@@ -148,9 +146,14 @@ export class Select {
 		this.dropdown.innerHTML = '';
 		this.indexMap = [];
 		var i = 0;
+		var include = child => (
+			child.label
+			&& (forceAll || this.isMatch(child.label))
+			&& !(this.original.multiple && child.selected)
+		);
 		Array.from(this.original.children).forEach(child => {
 			if (child.tagName === 'OPTION') {
-				if (child.label && (forceAll || this.isMatch(child.label))) {
+				if (include(child)) {
 					this.dropdown.append(this.createOption(child, i));
 				}
 				i += 1;
@@ -163,7 +166,7 @@ export class Select {
 				group.append(label);
 				group.append(ul);
 				Array.from(child.children).forEach(c => {
-					if (c.label && (forceAll || this.isMatch(c.label))) {
+					if (include(c)) {
 						ul.append(this.createOption(c, i));
 					}
 					i += 1;
@@ -190,12 +193,8 @@ export class Select {
 		this.updateDropdown();
 	}
 
-	setValue(i, toggle) {
-		if (toggle) {
-			this.original.options[i].selected = !this.original.options[i].selected;
-		} else {
-			this.original.options[i].selected = true;
-		}
+	setValue(i) {
+		this.original.options[i].selected = true;
 		this.original.dispatchEvent(new Event('change'));
 		this.close();
 		this.updateInput();
