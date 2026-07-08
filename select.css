@@ -1,4 +1,5 @@
 .select {
+	color-scheme: light dark;
 	--bg: Field;
 	--text: FieldText;
 	--focus-bg: Highlight;
@@ -111,10 +112,4 @@
 	block-size: 0;
 	overflow: hidden;
 	white-space: pre;
-}
-
-@media (prefers-color-scheme: dark) {
-	.select {
-		color-scheme: dark;
-	}
 }
