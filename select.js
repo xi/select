@@ -24,7 +24,7 @@ export class Select {
 	createElements() {
 		this.wrapper = create('<div class="select">');
 		this.input = create('<input role="combobox" aria-expanded="false" aria-haspopup="listbox" aria-autocomplete="list" autocomplete="off">');
-		this.dropdown = create('<ul class="select__dropdown" role="listbox" tabindex="-1">');
+		this.dropdown = create('<ul class="select__dropdown" role="listbox" tabindex="-1" popover="manual">');
 		this.dropdown.id = `${this.id}-dropdown`;
 
 		if (this.original.multiple) {
@@ -89,10 +89,15 @@ export class Select {
 				li.classList.toggle('select--has-focus', i === this.focus);
 				li.setAttribute('aria-selected', op.selected);
 			});
-			this.input.setAttribute('aria-expanded', 'true');
 			this.input.setAttribute('aria-activedescendant', options[this.focus].id);
+			if (!this.dropdown.matches(':popover-open')) {
+				this.input.setAttribute('aria-expanded', 'true');
+				this.dropdown.showPopover({source: this.input});
+				this.dropdown.scroll(0, 0);
+			}
 			options[this.focus].scrollIntoView({block: 'nearest'});
 		} else {
+			this.dropdown.hidePopover();
 			this.input.setAttribute('aria-expanded', 'false');
 			if (!this.original.multiple || !this.values.focus) {
 				this.input.removeAttribute('aria-activedescendant');
@@ -239,7 +244,7 @@ export class Select {
 				this.close();
 			}
 		} else {
-			if (event.key === 'ArrowDown') {
+			if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
 				event.preventDefault();
 				this.open(true);
 			}
