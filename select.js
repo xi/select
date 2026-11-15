@@ -87,6 +87,7 @@ export class Select {
 			Array.from(options).forEach((li, i) => {
 				const op = this.original.options[this.indexMap[i]];
 				li.classList.toggle('select--has-focus', i === this.focus);
+				li.setAttribute('aria-selected', op.selected);
 			});
 			this.input.setAttribute('aria-expanded', 'true');
 			this.input.setAttribute('aria-activedescendant', options[this.focus].id);
