@@ -9,8 +9,6 @@
 	--selected-bg: Highlight;
 	--selected-text: HighlightText;
 	--disabled-text: GrayText;
-
-	position: relative;
 }
 
 .select > input {
@@ -19,11 +17,13 @@
 }
 
 .select__dropdown {
-	position: absolute;
-	z-index: 2;
-	list-style: none;
+	box-sizing: border-box;
+	position-area: block-end center;
+	inline-size: anchor-size(self-inline);
+	inset: auto;
 	margin: 0;
 	padding: 0;
+	list-style: none;
 	background: var(--bg);
 	color: var(--text);
 	font-family: sans-serif;
@@ -33,16 +33,12 @@
 	outline: 1px solid var(--border);
 	border-block-start: 0;
 	box-shadow: 0 0 0.3em rgba(0, 0, 0, 0.5);
-	inset-inline: 0;
 	overflow-y: auto;
 
 	/* line-height and block-size are chosen so that the last line is only */
 	/* half visible (to indicate that there is more below) */
 	line-height: 1.2;
 	max-block-size: 10.4em;
-}
-.select__dropdown:empty {
-	display: none;
 }
 
 .select__dropdown [role="option"],
