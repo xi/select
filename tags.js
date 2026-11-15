@@ -49,7 +49,7 @@ export class TagInput {
 
 		this.original.oninvalid = () => {
 			this.input.setCustomValidity(this.original.validationMessage);
-			this.input.reportValiditiy();
+			this.input.reportValidity();
 		};
 		this.original.onchange = () => {
 			this.input.setCustomValidity(this.original.validationMessage);
