@@ -13,7 +13,7 @@ export class Values {
 		input.setAttribute('aria-describedby', this.el.id);
 		input.before(this.el);
 
-		var measureWrapper = create('<div class="select__measure" aria-hidden="true">');
+		const measureWrapper = create('<div class="select__measure" aria-hidden="true">');
 		input.after(measureWrapper);
 
 		this.measure = document.createElement('span');
@@ -24,7 +24,7 @@ export class Values {
 	}
 
 	setFocus(k) {
-		var n = this.el.children.length;
+		const n = this.el.children.length;
 		k = Math.min(0, Math.max(-n, k));
 		if (k !== this.focus) {
 			if (this.focus !== 0) {
@@ -46,26 +46,26 @@ export class Values {
 	updateSize() {
 		this.input.style.paddingTop = null;
 		this.input.style.lineHeight = null;
-		var style = getComputedStyle(this.input);
+		const style = getComputedStyle(this.input);
 
 		this.el.style.inset = style.padding;
 		this.el.style.borderWidth = style.borderWidth;
 
-		var n = this.el.children.length;
+		const n = this.el.children.length;
 		if (n > 0) {
-			var first = this.el.children[0].getBoundingClientRect();
-			var last = this.el.children[n - 1].getBoundingClientRect();
-			var height = last.top - first.top;
-			var width = style.direction === 'ltr'
+			const first = this.el.children[0].getBoundingClientRect();
+			const last = this.el.children[n - 1].getBoundingClientRect();
+			const height = last.top - first.top;
+			const width = style.direction === 'ltr'
 				? last.right - first.left
 				: first.right - last.left;
 
 			this.measure.textContent = this.input.value;
 			this.measure.style.font = style.font;
-			var text = this.measure.getBoundingClientRect();
+			const text = this.measure.getBoundingClientRect();
 
-			var paddingTop = parseFloat(style.paddingTop);
-			var lineHeight = style.lineHeight === 'normal'
+			const paddingTop = parseFloat(style.paddingTop);
+			const lineHeight = style.lineHeight === 'normal'
 				? text.height
 				: parseFloat(style.lineHeight);
 
@@ -90,7 +90,7 @@ export class Values {
 		this.el.innerHTML = '';
 		Array.from(original.options).forEach((op, i) => {
 			if (op.selected && op.label) {
-				var li = document.createElement('li');
+				const li = document.createElement('li');
 				li.id = `${this.el.id}-${i}`;
 				li.role = 'button';
 				li.textContent = op.label;
@@ -109,8 +109,8 @@ export class Values {
 
 	onkeydown(event) {
 		if (this.focus && (event.key === 'Backspace' || event.key === 'Delete')) {
-			var n = this.el.children.length;
-			var oldFocus = this.focus;
+			const n = this.el.children.length;
+			const oldFocus = this.focus;
 			this.el.children[n + this.focus].onclick();
 			this.setFocus(Math.min(oldFocus + 1, -1));
 		} else if (event.key === 'ArrowLeft') {

@@ -26,7 +26,7 @@ export class TagInput {
 
 		this.input = document.createElement('input');
 		this.input.className = this.inputClass || '';
-		var labels = Array.from(this.original.labels).map(label => {
+		const labels = Array.from(this.original.labels).map(label => {
 			label.id = label.id || randomString(8);
 			return label.id;
 		}).join(' ');
@@ -65,7 +65,7 @@ export class TagInput {
 	}
 
 	setValue(value) {
-		var option = Array.from(this.original.options).find(op => op.value === value);
+		let option = Array.from(this.original.options).find(op => op.value === value);
 		if (!option) {
 			option = document.createElement('option');
 			option.setAttribute('data-tag-custom', '');
@@ -88,9 +88,9 @@ export class TagInput {
 				// nothing to do
 			} else if (event.key === 'Backspace') {
 				event.preventDefault();
-				var n = this.original.selectedOptions.length;
+				const n = this.original.selectedOptions.length;
 				if (n) {
-					var op = this.original.selectedOptions[n - 1];
+					const op = this.original.selectedOptions[n - 1];
 					op.selected = false;
 					this.updateValue();
 					this.input.value = op.value;

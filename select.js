@@ -28,7 +28,7 @@ export class Select {
 		this.dropdown.id = `${this.id}-dropdown`;
 
 		if (this.original.multiple) {
-			var inputWrapper = create('<div class="select__input">');
+			const inputWrapper = create('<div class="select__input">');
 			inputWrapper.append(this.input);
 			this.values = new Values(this.input, `${this.id}-values`, this.valueClass, this.valueFocusClass);
 			this.wrapper.append(inputWrapper);
@@ -43,7 +43,7 @@ export class Select {
 		this.input.className = this.inputClass || '';
 		this.input.disabled = this.original.disabled;
 
-		var labels = Array.from(this.original.labels).map(label => {
+		const labels = Array.from(this.original.labels).map(label => {
 			label.id = label.id || randomString(8);
 			return label.id;
 		}).join(' ');
@@ -77,15 +77,15 @@ export class Select {
 	}
 
 	isMatch(s) {
-		var q = this.input.value.toLowerCase();
+		const q = this.input.value.toLowerCase();
 		return s.toLowerCase().indexOf(q) !== -1;
 	}
 
 	updateDropdown() {
-		var options = this.dropdown.querySelectorAll('[role="option"]');
+		const options = this.dropdown.querySelectorAll('[role="option"]');
 		if (this.focus !== -1 && options.length) {
 			Array.from(options).forEach((li, i) => {
-				var op = this.original.options[this.indexMap[i]];
+				const op = this.original.options[this.indexMap[i]];
 				li.classList.toggle('select--has-focus', i === this.focus);
 			});
 			this.input.setAttribute('aria-expanded', 'true');
@@ -126,7 +126,7 @@ export class Select {
 	}
 
 	createOption(op, i) {
-		var li = create('<li role="option">');
+		const li = create('<li role="option">');
 		li.id = `${this.id}_option_${i}`;
 		li.textContent = op.label;
 		if (op.disabled) {
@@ -145,8 +145,8 @@ export class Select {
 		this.focus = 0;
 		this.dropdown.innerHTML = '';
 		this.indexMap = [];
-		var i = 0;
-		var include = child => (
+		let i = 0;
+		const include = child => (
 			child.label
 			&& (forceAll || this.isMatch(child.label))
 			&& !(this.original.multiple && child.selected)
@@ -158,9 +158,9 @@ export class Select {
 				}
 				i += 1;
 			} else if (child.tagName === 'OPTGROUP') {
-				var group = create('<li role="group">');
-				var label = create('<strong>');
-				var ul = create('<ul role="none">');
+				const group = create('<li role="group">');
+				const label = create('<strong>');
+				const ul = create('<ul role="none">');
 				label.textContent = child.label;
 				group.setAttribute('aria-label', child.label);
 				group.append(label);
@@ -234,9 +234,9 @@ export class Select {
 				this.close();
 			} else if (event.key === 'Backspace') {
 				event.preventDefault();
-				var n = this.original.selectedOptions.length;
+				const n = this.original.selectedOptions.length;
 				if (n) {
-					var op = this.original.selectedOptions[n - 1];
+					const op = this.original.selectedOptions[n - 1];
 					op.selected = false;
 					this.updateInput();
 					this.input.value = op.label;
@@ -252,7 +252,7 @@ export class Select {
 		} else {
 			this.close();
 		}
-		var ops = Array.from(this.original.options);
+		const ops = Array.from(this.original.options);
 		this.inputDirty = !ops.some(op => this.isMatch(op.label));
 		this.updateValidity();
 	}
