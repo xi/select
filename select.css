@@ -19,6 +19,7 @@
 .select__dropdown {
 	box-sizing: border-box;
 	position-area: block-end center;
+	position-try-fallbacks: flip-block;
 	inline-size: anchor-size(self-inline);
 	inset: auto;
 	margin: 0;
@@ -31,7 +32,6 @@
 	font: -moz-field;
 	border: 1px solid var(--bg);
 	outline: 1px solid var(--border);
-	border-block-start: 0;
 	box-shadow: 0 0 0.3em rgba(0, 0, 0, 0.5);
 	overflow-y: auto;
 

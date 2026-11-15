@@ -244,7 +244,7 @@ export class Select {
 				this.close();
 			}
 		} else {
-			if (event.key === 'ArrowDown') {
+			if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
 				event.preventDefault();
 				this.open(true);
 			}
