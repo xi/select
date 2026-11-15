@@ -188,13 +188,25 @@ export class Select {
 	}
 
 	moveFocus(k) {
-		this.focus += k;
-		this.focus = Math.max(this.focus, 0);
-		this.focus = Math.min(this.focus, this.indexMap.length - 1);
+		let i = this.focus;
+		let lastEnabled = this.focus;
+		while (
+			(i >= 0 && i < this.indexMap.length)
+			&& (lastEnabled === this.focus || Math.abs(this.focus - i) <= Math.abs(k))
+		) {
+			if (!this.original.options[this.indexMap[i]].disabled) {
+				lastEnabled = i;
+			}
+			i += k > 0 ? 1 : -1;
+		}
+		this.focus = lastEnabled;
 		this.updateDropdown();
 	}
 
 	setValue(i) {
+		if (this.original.options[i].disabled) {
+			return;
+		}
 		this.original.options[i].selected = true;
 		this.original.dispatchEvent(new Event('change'));
 		this.close();
