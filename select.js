@@ -187,15 +187,17 @@ export class Select {
 		this.updateDropdown();
 	}
 
-	moveFocus(k) {
+	moveFocus(k, wrap) {
 		let i = this.focus;
 		let lastEnabled = this.focus;
 		while (
-			(i >= 0 && i < this.indexMap.length)
+			Math.abs(this.focus - i) < this.indexMap.length
+			&& (wrap || (i >= 0 && i < this.indexMap.length))
 			&& (lastEnabled === this.focus || Math.abs(this.focus - i) <= Math.abs(k))
 		) {
-			if (!this.original.options[this.indexMap[i]].disabled) {
-				lastEnabled = i;
+			const wrapped = (i + this.indexMap.length) % this.indexMap.length;
+			if (!this.original.options[this.indexMap[wrapped]].disabled) {
+				lastEnabled = wrapped;
 			}
 			i += k > 0 ? 1 : -1;
 		}
@@ -217,13 +219,13 @@ export class Select {
 		if (this.focus !== -1) {
 			if (event.key === 'ArrowDown') {
 				event.preventDefault();
-				this.moveFocus(1);
+				this.moveFocus(1, true);
 			} else if (event.key === 'PageDown') {
 				event.preventDefault();
 				this.moveFocus(10);
 			} else if (event.key === 'ArrowUp') {
 				event.preventDefault();
-				this.moveFocus(-1);
+				this.moveFocus(-1, true);
 			} else if (event.key === 'PageUp') {
 				event.preventDefault();
 				this.moveFocus(-10);
